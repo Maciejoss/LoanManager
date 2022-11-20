@@ -12,7 +12,7 @@ const oAuthConfig: AuthConfig = {
 
 export interface UserInfo {
   info: {
-    sub: string,
+    sub: string, //unique userID
     email: string, 
     name: string, 
     picture: string
