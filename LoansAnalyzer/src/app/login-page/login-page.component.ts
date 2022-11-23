@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GoogleApiService, UserInfo } from './google-api.service';
+import { GoogleApiService, UserInfo } from './google-api/google-api.service';
 
 @Component({
   selector: 'app-login-page',
