@@ -7,18 +7,34 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { InquireFormComponent } from './inquire-form/inquire-form.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { FormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
+import { HomePageComponent } from './home-page/home-page.component';
+import { SideMenuComponent } from './home-page/side-menu/side-menu.component';
+import { InquireFormLoggedComponent } from './inquire-form-logged/inquire-form-logged.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    InquireFormComponent,
+    HomePageComponent,
+    SideMenuComponent,
+    InquireFormLoggedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    OAuthModule.forRoot()
+    NgbModule,
+    FormsModule,
+    MatSliderModule,
+    OAuthModule.forRoot(),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

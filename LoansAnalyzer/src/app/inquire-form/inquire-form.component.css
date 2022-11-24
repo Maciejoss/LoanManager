@@ -1,0 +1,37 @@
+.form-group{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  background-color: #2b6777;
+  width: 100%;
+
+  border-radius: 10px;
+  padding: 10px;
+  color:white;
+}
+
+.label-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.personal-data{
+  border-radius: 10px;
+  background-color: #52ab98;
+  padding:20px;
+}
+
+.alert{
+  margin-top: 2px;
+  padding: 5px;
+  height: min-content;
+  opacity: 0.9;
+}
+
+.filled-data{
+  color:black;
+}
