@@ -1,0 +1,95 @@
+<div class="formContainer">
+  <h1>Aply for a loan {{message?.info?.name}}</h1>
+  <form>
+
+    <div class="form-group">
+      <div class="label-container">
+        <label id="name-label" class="name-label">Choose amount</label>
+        <label class="value-label">{{kwota}} 000 zł</label>
+      </div>
+      <mat-slider min="1" max="100" step="1" value="20">
+        <input name = "kwota" matSliderThumb [(ngModel)]="kwota">
+      </mat-slider>
+    </div>
+
+    <div class="form-group">
+      <div class="label-container">
+        <label id="name-label" class="name-label">Choose number of instalments</label>
+        <label class="value-label">{{raty}}</label>
+      </div>
+      <mat-slider min="1" max="48" step="1" value="6">
+        <input matSliderThumb [(ngModel)]="raty" name = "raty" id="raty">
+      </mat-slider>
+    </div>
+
+    <div class="personal-data">
+      <h1>Personal data</h1>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+
+      <div *ngIf="message==null">
+        <input required  ngModel name="firstName" #firstName ="ngModel" id="firstName" type="text" class="form-control">
+        <div class ="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+         <div *ngIf="firstName.errors?.['required']">First Name required</div>
+        </div>
+      </div>
+
+      <div *ngIf="message!=null">
+        <div class="filled-data">
+        {{message?.name}}
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="surName">Surname</label>
+
+      <div *ngIf="message==null">
+      <input required ngModel name="surName" #surName="ngModel" id="surName" type="text" class="form-control">
+      <div class ="alert alert-danger" *ngIf="surName.touched && !surName.valid">
+        <div *ngIf="surName.errors?.['required']">surName required</div>
+      </div>
+      </div>
+      <div *ngIf="message!=null">
+        <div class="filled-data">
+        {{message?.name}}
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="idNumber">Id number</label>
+
+      <div *ngIf="message==null">
+      <input required pattern="^[0-9]*$" ngModel name="idNumber" #idNumber="ngModel" id="idNumber" type="text" class="form-control">
+      <div class ="alert alert-danger" *ngIf="idNumber.touched && !idNumber.valid">
+        <div *ngIf="idNumber.errors?.['required']">Id Number required</div>
+        <div *ngIf="idNumber.errors?.['pattern']">Id Number not valid</div>
+        </div>
+      </div>
+      <div *ngIf="message!=null">
+        <div class="filled-data">
+        {{message?.name}}
+      </div>
+      </div>
+      </div>
+
+      <div class="form-group">
+        <label for="jobType">Job type</label>
+        <select id="jobType" type="text" class="form-control">
+          <option>--Select--</option>
+          <option *ngFor="let job of jobs">
+            {{job}}
+          </option>
+        </select>
+      </div>
+
+    </div>
+
+    <pre></pre>
+    <button type="button" class="btn btn-danger">Submit</button>
+  </form>
+</div>
+
+
+

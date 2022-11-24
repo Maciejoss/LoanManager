@@ -1,0 +1,51 @@
+<!--
+<div *ngIf="isLoggedIn()">
+  <div class="container">Name: {{ userInfo?.info?.name }}</div>
+  <div class="container">E-mail: {{ userInfo?.info?.email }}</div>
+  <div class="container"><img src="{{ userInfo?.info?.picture }}" style="border-radius: 50%;"></div>
+  <div class="container">
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
+
+<div>
+  <app-login-page></app-login-page>
+</div>
+-->
+
+<body>
+
+  <button (click)="OpenSideMenu()" class="hamburger">
+    <div class="bar"></div>
+  </button>
+
+  <div  class="side-menu">
+  <nav>
+    <button (click)="OpenSideMenu()"></button>
+    <ul *ngIf="userInfo!=null">
+      <li><div for="">Name</div></li>
+      <li class="personal-data"><label for="">{{userInfo.name}}</label></li>
+      <li><div for="">e-mail</div></li>
+      <li class="personal-data"><label for="">{{userInfo.email}}</label></li>
+      <pre></pre>
+      <li><a href="#">My loans</a></li>
+      <pre></pre>
+      <li ><button (click)="logout()">Logout</button></li>
+    </ul>
+    <ul *ngIf="userInfo==null">
+    <button (click)="login()">Log in</button>
+  </ul>
+  </nav>
+  </div>
+
+  <div class="welcome">
+    <h1>Na święta Twoim bliskim należy się więcej!</h1>
+    <h2>Korzystaj z życia.</h2>
+    <h3>łatwo · prosto · szybko</h3>
+  </div>
+  <div class="form-container">
+    <app-inquire-form [message]="userInfo"></app-inquire-form>
+  </div>
+</body>
+<footer></footer>
+

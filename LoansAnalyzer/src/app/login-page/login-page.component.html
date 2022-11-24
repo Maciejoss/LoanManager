@@ -1,9 +1,7 @@
-<div *ngIf="isLoggedIn()">
-    <div class="container">Name: {{ userInfo?.info?.name }}</div>
-    <div class="container">E-mail: {{ userInfo?.info?.email }}</div>
-    <div class="container"><img src="{{ userInfo?.info?.picture }}" style="border-radius: 50%;"></div>
-    <div class="container">
-      <button (click)="logout()">Logout</button>
-    </div>
-  </div>
-  
+<div>
+    <mat-card class="cardStyle">
+        <h2>Login Below With Google</h2>
+        <div id="buttonDiv"></div>
+    </mat-card>
+</div>
+
