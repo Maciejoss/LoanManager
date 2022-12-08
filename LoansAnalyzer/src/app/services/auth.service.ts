@@ -19,7 +19,7 @@ export class AuthService {
 
   LoginWithGoogle(credentials: string): Observable<any> {
     const header = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put(this.path + "User/LoginWithGoogle", JSON.stringify(credentials), { headers: header });
+    return this.httpClient.post(this.path + "User/LoginWithGoogle", JSON.stringify(credentials), { headers: header });
   }
 
 
