@@ -49,7 +49,10 @@ export class LoginPageComponent implements OnInit {
     login() {
       this.securityObject?.init();
       this.securityService.login(this.user)
-        .subscribe(response => this.securityObject = response);
+        .subscribe(response => {
+          localStorage.setItem("AuthObject", JSON.stringify(response))
+          this.securityObject = response;
+        });
     }
 
     async HandleCredentialResponse(response: CredentialResponse) {

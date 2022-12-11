@@ -20,6 +20,6 @@ export class AppComponent {
   logout(): void{
     this.securityService.logout();
     this.securityObject = this.securityService.securityObject;
+    localStorage.removeItem("AuthObject");
   }
-
 }
