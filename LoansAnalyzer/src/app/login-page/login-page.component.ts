@@ -1,10 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../services/auth.service';
-import { GoogleApiService, UserInfo } from './google-api/google-api.service';
 
 @Component({
   selector: 'app-login-page',
