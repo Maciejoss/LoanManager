@@ -1,2 +1,20 @@
-
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="navbar-nav">
+    <a class="nav-item nav-link"
+       *ngIf="securityObject!.canAccessInquiryForm"
+       routerLink="/main-page">Home page</a>
+    <a class="nav-item nav-link"
+       *ngIf="securityObject!.canAccessBankPage"
+       routerLink="/main-page">Employee page (tmp redirect to main-page)</a>
+    <a class="nav-item nav-link"
+       *ngIf="securityObject!.canAccessLoginPage && !securityObject!.isAuthenticated"
+       routerLink="/login-page">Login page</a>
+    <a class="nav-item nav-link"
+       *ngIf="securityObject!.canAccessAdditionalInfoForm && securityObject!.isAuthenticated"
+       routerLink="/login-page">Edit user info</a>
+    <a class="nav-item nav-link"
+       *ngIf="!securityObject!.canAccessLoginPage"
+       (click)="logout()">Logout {{securityObject!.userName}}</a>
+  </div>
+</nav>
 <router-outlet></router-outlet>

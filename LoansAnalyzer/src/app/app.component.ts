@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AppUserAuth} from "./security/app-user-auth";
+import {SecurityService} from "./shared/security/security.service";
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   title = 'LoansAnalyzer';
-  testvar ="test";
+
+  securityObject: AppUserAuth | undefined;
+
+  constructor(private securityService: SecurityService) {
+    this.securityObject = securityService.securityObject;
+  }
+
+  logout(): void{
+    this.securityService.logout();
+    this.securityObject = this.securityService.securityObject;
+  }
+
 }
