@@ -1,6 +1,6 @@
 import {UserBase} from "../shared/security/user-base";
 
-export class AppClient extends UserBase{
+export class AppUser extends UserBase{
   name: string = '';
   email: string = '';
 }

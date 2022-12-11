@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../services/auth.service';
+import {AppUser} from "../security/app-user";
+import {AppUserAuth} from "../security/app-user-auth";
+import {SecurityService} from "../shared/security/security.service";
 
 @Component({
   selector: 'app-login-page',
@@ -13,10 +16,14 @@ export class LoginPageComponent implements OnInit {
 
   private clientId = environment.clientId;
 
+  user: AppUser = new AppUser();
+  securityObject: AppUserAuth | undefined;
+
   constructor(
     private router: Router,
     private service: AuthService,
-    private _ngZone: NgZone) { }
+    private _ngZone: NgZone,
+    private securityService: SecurityService) { }
 
     ngOnInit(): void {
       // @ts-ignore
@@ -37,6 +44,12 @@ export class LoginPageComponent implements OnInit {
         // @ts-ignore
         google.accounts.id.prompt((notification: PromptMomentNotification) => {});
       };
+    }
+
+    login() {
+      this.securityObject?.init();
+      this.securityService.login(this.user)
+        .subscribe(response => this.securityObject = response);
     }
 
     async HandleCredentialResponse(response: CredentialResponse) {

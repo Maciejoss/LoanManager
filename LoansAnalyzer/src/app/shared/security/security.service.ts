@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {AppClientAuth} from "../../security/app-client-auth";
-import {AppClient} from "../../security/app-client";
+import {AppUserAuth} from "../../security/app-user-auth";
+import {AppUser} from "../../security/app-user";
 import {Observable} from "rxjs/internal/Observable";
 import {UserAuthBase} from "./user-auth-base";
 import {of} from "rxjs";
@@ -12,9 +12,9 @@ export class SecurityService {
 
   constructor() { }
 
-  securityObject: AppClientAuth = new AppClientAuth()
+  securityObject: AppUserAuth = new AppUserAuth()
 
-  login(entity: AppClient): Observable<AppClientAuth>{
+  login(entity: AppUser): Observable<AppUserAuth>{
     this.securityObject.userName = entity.userName;
     this.securityObject.email = entity.email;
 

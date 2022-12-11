@@ -1,6 +1,6 @@
 import {UserAuthBase} from "../shared/security/user-auth-base";
 
-export class AppClientAuth extends UserAuthBase{
+export class AppUserAuth extends UserAuthBase{
 
   override canAccessBankPage = false;
   override canAccessAdditionalInfoForm = true;
