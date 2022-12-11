@@ -12,4 +12,8 @@ export class AppUserAuth extends UserAuthBase{
     super.init();
 
   }
+
+  getPropertyValue(obj: any, key: string): boolean{
+    return obj[key];
+  }
 }

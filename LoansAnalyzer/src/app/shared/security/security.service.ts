@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {AppUserAuth} from "../../security/app-user-auth";
 import {AppUser} from "../../security/app-user";
 import {Observable} from "rxjs/internal/Observable";
-import {UserAuthBase} from "./user-auth-base";
 import {of} from "rxjs";
 
 @Injectable({
@@ -29,4 +28,5 @@ export class SecurityService {
   logout(): void{
     this.securityObject.init();
   }
+
 }
