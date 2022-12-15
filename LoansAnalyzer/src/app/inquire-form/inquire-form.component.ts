@@ -9,14 +9,11 @@ import { UserInfo } from 'angular-oauth2-oidc';
 })
 export class InquireFormComponent {
   @Input() message :any;
-  log(x: NgModel){console.log(x);}
-  kwota = 20;
+
+  kwota:number;
   raty = 6;
-  test ="";
-  jobs =["Murarz", "Tynkarz", "Akrobata"];
 
-
-
-  constructor(){}
-  ngOnInit(): void{}
+  constructor(){
+    this.kwota=5;
+  }
 }

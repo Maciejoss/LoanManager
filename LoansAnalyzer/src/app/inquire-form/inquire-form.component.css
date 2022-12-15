@@ -35,3 +35,8 @@
 .filled-data{
   color:black;
 }
+
+.form-control{
+  width: 100px;
+  text-align: left;
+}

@@ -16,7 +16,10 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  userInfo : UserInfo|null = new UserInfo("Maciej","Placek","Imie","pikczer");
+  userInfo : UserInfo|null = new UserInfo(
+  "Maciej","Placek","Imie","pikczer","piątek",
+  new JobDetails("",123,"","","",""),
+  new GovernmentDocument("",123,"","",""));
 
   public logout(){
     this.service.signOutExternal();
@@ -48,11 +51,34 @@ export class MainPageComponent implements OnInit {
 
 export class UserInfo {
   constructor(public ub: string, //unique userID
-  public email: string,
-  public name: string,
-  public picture: string){
+  public Email: string|null,
+  public Name: string|null,
+  public SurName: string|null,
+  public BirthDate: string|null,
+  public JobDetails: JobDetails,
+  public GovernmentDocument: GovernmentDocument){
   }
+}
 
+export class JobDetails{
+  constructor(
+    public Id: string,
+    public TypeId: number,
+    public Name: string|null,
+    public Description: string,
+    public StartDate: string|null,
+    public EndDate?: string|null,
+  ){}
+}
+
+export class GovernmentDocument{
+  constructor(
+    public Id: string,
+    public TypeId: number,
+    public Name: string|null,
+    public Description: string,
+    public Number: string|null
+  ){}
 }
 
 export class InquireInfo {

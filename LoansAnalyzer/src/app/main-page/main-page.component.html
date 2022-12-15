@@ -24,16 +24,18 @@
     <button (click)="OpenSideMenu()"></button>
     <ul *ngIf="userInfo!=null">
       <li><div for="">Name</div></li>
-      <li class="personal-data"><label for="">{{userInfo.name}}</label></li>
+      <li class="personal-data"><label for="">{{userInfo.Name}}</label></li>
       <li><div for="">e-mail</div></li>
-      <li class="personal-data"><label for="">{{userInfo.email}}</label></li>
+      <li class="personal-data"><label for="">{{userInfo.Email}}</label></li>
       <pre></pre>
       <li><a href="#">My loans</a></li>
       <pre></pre>
       <li ><button (click)="logout()">Logout</button></li>
+      <li><a routerLink="/user-data-page" routerLinkActive="active" ariaCurrentWhenActive="page">First Component</a></li>
     </ul>
     <ul *ngIf="userInfo==null">
     <button (click)="login()">Log in</button>
+
   </ul>
   </nav>
   </div>
