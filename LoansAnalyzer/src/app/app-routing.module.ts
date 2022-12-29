@@ -13,8 +13,8 @@ const routes: Routes = [
   },
   { path: 'login-page',
     component: LoginPageComponent,
-    canActivate: [AuthGuard],
-    data: {claimType: 'canAccessLoginPage'}
+    // canActivate: [AuthGuard],
+    // data: {claimType: 'canAccessLoginPage'}
   },
   { path: '',   redirectTo: 'main-page', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },

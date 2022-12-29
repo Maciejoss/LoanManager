@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
 import {AppUserAuth} from "../../security/app-user-auth";
 import {AppUser} from "../../security/app-user";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from "rxjs/internal/Observable";
-import {of} from "rxjs";
+import {catchError, of, tap} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
 
-  constructor() { }
+  private path = environment.apiUrl;
+  securityObject: AppUserAuth = new AppUserAuth();
 
-  securityObject: AppUserAuth = new AppUserAuth()
+  constructor(private httpClient: HttpClient) { }
 
-  login(entity: AppUser): Observable<AppUserAuth>{
-    this.securityObject.userName = entity.userName;
-    this.securityObject.email = entity.email;
+  login(credentials: string): Observable<AppUserAuth>{
 
-    // check user type to check if it's employee or not
-    this.securityObject.canAccessLoginPage = true;
-    this.securityObject.canAccessInquiryForm = true;
-    this.securityObject.canAccessAdditionalInfoForm = true;
+    const header = new HttpHeaders().set('Content-type', 'application/json');
 
-    return of(this.securityObject);
+    return this.httpClient.post<AppUserAuth>(
+      this.path + "User/LoginWithGoogle",
+      JSON.stringify(credentials),
+      { headers: header })
+      .pipe(
+        tap(resp => {
+          Object.assign(this.securityObject, resp);
+        }),
+    );
   }
 
   logout(): void{

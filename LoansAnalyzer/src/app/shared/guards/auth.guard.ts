@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
 import {SecurityService} from "../security/security.service";
 
@@ -8,7 +8,9 @@ import {SecurityService} from "../security/security.service";
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private securityService: SecurityService) {
+  constructor(
+    private securityService: SecurityService,
+    private router: Router) {
   }
 
   canActivate(
@@ -25,7 +27,13 @@ export class AuthGuard implements CanActivate {
     let isAuthenticated = this.securityService.securityObject.isAuthenticated;
     let canAccess = this.securityService.securityObject.getPropertyValue(this.securityService.securityObject, claimType);
 
-    return isAuthenticated && canAccess;
+    if(isAuthenticated && canAccess){
+      return true;
+    }
+    else{
+      this.router.navigate(['login-page'],{queryParams: {returnUrl: state.url}})
+      return false;
+    }
   }
 
 }

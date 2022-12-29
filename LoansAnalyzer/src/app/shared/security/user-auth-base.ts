@@ -1,22 +1,19 @@
+import {userType} from "../enums/userType"
+
 export class UserAuthBase {
-  userName: string = '';
+  name: string = '';
+  surname: string = '';
   email: string = '';
+  userClaims: userType | undefined;
   bearerToken: string = '';
   isAuthenticated: boolean = false;
 
-  canAccessLoginPage: boolean = false;
-  canAccessInquiryForm: boolean = false;
-  canAccessAdditionalInfoForm: boolean = false;
-  canAccessBankPage: boolean = false;
 
   init(): void{
-    this.userName = '';
+    this.name = '';
+    this.surname = '';
+    this.email= '';
     this.bearerToken = '';
     this.isAuthenticated = false;
-
-    this.canAccessLoginPage = false;
-    this.canAccessAdditionalInfoForm = false;
-    this.canAccessInquiryForm = false;
-    this.canAccessBankPage = false;
   }
 }
