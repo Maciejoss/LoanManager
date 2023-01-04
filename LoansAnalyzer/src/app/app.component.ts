@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppUserAuth} from "./security/app-user-auth";
 import {SecurityService} from "./shared/security/security.service";
 
@@ -7,14 +7,17 @@ import {SecurityService} from "./shared/security/security.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   title = 'LoansAnalyzer';
 
   securityObject: AppUserAuth | undefined;
 
   constructor(private securityService: SecurityService) {
-    this.securityObject = securityService.securityObject;
+  }
+
+  ngOnInit(){
+    this.securityObject = this.securityService.securityObject;
   }
 
   logout(): void{

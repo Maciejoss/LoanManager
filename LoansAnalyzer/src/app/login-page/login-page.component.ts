@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')!;
 
       // @ts-ignore
-      window.onGoogleLibraryLoad = () => {
+  //    window.onGoogleLibraryLoad = () => {
         // @ts-ignore
         google.accounts.id.initialize({
           client_id: this.clientId,
@@ -47,7 +47,7 @@ export class LoginPageComponent implements OnInit {
         );
         // @ts-ignore
         google.accounts.id.prompt((notification: PromptMomentNotification) => {});
-      };
+    //  };
     }
 
     async HandleCredentialResponse(response: CredentialResponse) {
