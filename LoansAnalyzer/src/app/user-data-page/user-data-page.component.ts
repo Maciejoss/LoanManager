@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import {
   UserInfo,
@@ -169,7 +169,7 @@ export class UserDataPageComponent {
 
     this.userInfo.GovernmentDocument.Number = this.GovDocumentNumberControl.value!;
 
-    if (this.saveError == false) {
+    if (!this.saveError) {
       this.saveSuccess = true;
 
       this.userInfo.GovernmentDocument.TypeId = this.idds.find((obj) => {

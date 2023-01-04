@@ -1,6 +1,5 @@
-import { Component, NgZone, OnInit, Input } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, filter, map } from 'rxjs';
+import { Component, NgZone} from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
