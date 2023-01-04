@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import {AppUserAuth} from "../../security/app-user-auth";
-import {AppUser} from "../../security/app-user";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from "rxjs/internal/Observable";
-import {catchError, of, tap} from "rxjs";
+import {tap} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {LoginPageComponent} from "../../login-page/login-page.component";
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +27,7 @@ export class SecurityService {
         tap(resp => {
           Object.assign(this.securityObject, resp);
         }),
-    );
+      );
   }
 
   logout(): void{
