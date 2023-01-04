@@ -11,12 +11,13 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { InquireFormComponent } from './inquire-form/inquire-form.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { HomePageComponent } from './home-page/home-page.component';
-import { SideMenuComponent } from './home-page/side-menu/side-menu.component';
-import { InquireFormLoggedComponent } from './inquire-form-logged/inquire-form-logged.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { UserDataPageComponent } from './user-data-page/user-data-page.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     PageNotFoundComponent,
     LoginPageComponent,
     InquireFormComponent,
-    HomePageComponent,
-    SideMenuComponent,
-    InquireFormLoggedComponent
+    UserDataPageComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +35,13 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     MaterialModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSliderModule,
     HttpClientModule,
     NgbModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatSelectModule,
     OAuthModule.forRoot(),
 
   ],

@@ -1,9 +1,6 @@
 .form-container{
   width:300px;
-}
-
-header{
-  background-color: #f2f2f2;
+  align-self: center;
 }
 
 body{
@@ -11,12 +8,29 @@ body{
   display:flex;
   justify-content: space-between;
   padding: 20px;
-  padding-top: 100px;
-  height: auto;
+  height: 80%;
 }
 
 footer{
   background-color: #f2f2f2;
+  height: 30%;
+}
+
+#offers{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 100%;
+  padding-bottom: 5px;
+}
+
+.offer{
+  border: black solid 1px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  height: 100%;
+  margin-bottom: 5px;
 }
 
 .welcome{
@@ -90,24 +104,22 @@ ul{
 
 ul a {
   text-decoration: none;
+  color: white;
 }
 
 ul li{
   padding: 5px;
   border-radius: 5px;
-
   height: min-content;
 
-}
-
-li.personal-data{
-  background-color: #3b7787;
-  text-align: center;
-  width: min-content;
-  font-size: 12px;
 }
 
 .form-container{
   margin-right: 100px;
 }
 
+.go-back-button {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}

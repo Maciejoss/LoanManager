@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AuthGuard} from "./shared/guards/auth.guard";
+import { UserDataPageComponent } from './user-data-page/user-data-page.component';
 
 const routes: Routes = [
   { path: 'main-page',
@@ -16,8 +17,13 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     // data: {claimType: 'canAccessLoginPage'}
   },
+  { path: 'user-data-page',
+    component: UserDataPageComponent,
+    canActivate: [AuthGuard],
+    data: {claimType: 'canAccessAdditionalInfoForm'}
+  },
   { path: '',   redirectTo: 'main-page', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

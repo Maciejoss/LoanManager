@@ -1,6 +1,5 @@
-import { Component,OnInit, Input } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { UserInfo } from 'angular-oauth2-oidc';
+import { outputAst } from '@angular/compiler';
+import { Component,OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-inquire-form',
@@ -8,15 +7,15 @@ import { UserInfo } from 'angular-oauth2-oidc';
   styleUrls: ['./inquire-form.component.css']
 })
 export class InquireFormComponent {
-  @Input() message :any;
-  log(x: NgModel){console.log(x);}
-  kwota = 20;
+
+  @Output()
+  status = new EventEmitter<[number, number]>();
+
+  kwota =5;
   raty = 6;
-  test ="";
-  jobs =["Murarz", "Tynkarz", "Akrobata"];
 
+  SubmitInquire(){
+      this.status.emit([this.kwota,this.raty]);
+  }
 
-
-  constructor(){}
-  ngOnInit(): void{}
 }

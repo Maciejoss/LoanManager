@@ -22,19 +22,12 @@
   <div  class="side-menu">
   <nav>
     <button (click)="OpenSideMenu()"></button>
-    <ul *ngIf="userInfo!=null">
-      <li><div for="">Name</div></li>
-      <li class="personal-data"><label for="">{{userInfo.name}}</label></li>
-      <li><div for="">e-mail</div></li>
-      <li class="personal-data"><label for="">{{userInfo.email}}</label></li>
-      <pre></pre>
-      <li><a href="#">My loans</a></li>
-      <pre></pre>
-      <li ><button (click)="logout()">Logout</button></li>
+    <ul>
+      <li *ngIf="userInfo!=null" ><button  (click)="logout()">Logout</button></li>
+      <li *ngIf="userInfo==null" ><button (click)="login()">Log in</button></li>
+      <li><a routerLink="/user-data-page" routerLinkActive="active" ariaCurrentWhenActive="page">Dane użytkownika</a></li>
     </ul>
-    <ul *ngIf="userInfo==null">
-    <button (click)="login()">Log in</button>
-  </ul>
+
   </nav>
   </div>
 
@@ -44,8 +37,31 @@
     <h3>łatwo · prosto · szybko</h3>
   </div>
   <div class="form-container">
-    <app-inquire-form [message]="userInfo"></app-inquire-form>
+    <app-inquire-form (status) = "InquireSubmit($event)"></app-inquire-form>
   </div>
 </body>
-<footer></footer>
+<footer>
+  <div *ngIf="show==true && isChosenOffer==false">
+    <div *ngFor="let offer of oferty" class="offer">
+      <div>
+        <h2>Bank Offer</h2>
+        <p>Amount of money: <strong>{{offer.amount}} 000</strong></p>
+        <p>Number of instalments: <strong>{{offer.instalments}}</strong></p>
+        <p>Installment value: <strong>{{offer.instalmentToPay}}</strong></p>
+        <button mat-raised-button color="primary" (click)="ChooseOffer(offer)">Choose</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="show==true && isChosenOffer==true">
+    <div>
+      <div (click)="LeaveOffer()" class="go-back-button"><strong><--</strong></div>
+      <h2>Bank Offer</h2>
+      <p>Amount of money: <strong>{{chosenOffer!.amount}} 000</strong></p>
+      <p>Number of instalments: <strong>{{chosenOffer!.instalments}}</strong></p>
+      <p>Installment value: <strong>{{chosenOffer!.instalmentToPay}}</strong></p>
+      <button mat-raised-button color="primary" (click)="ApplyForALoan(chosenOffer!)">Apply for the loan</button>
+    </div>
+  </div>
+
+</footer>
 

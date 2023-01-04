@@ -1,0 +1,82 @@
+.form-group-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding-bottom: 5px;
+}
+
+.form-group {
+  width: auto;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+mat-form-field{
+  width: 100%;
+}
+
+.edit {
+  width: 150px;
+  cursor: pointer;
+  text-align: right;
+  color: blue;
+}
+
+.data {
+  color: rgb(118, 118, 118);
+}
+
+.btn {
+  margin-left: 5px;
+}
+
+#save-error {
+  color: red;
+  padding-bottom: 10px;
+}
+
+form {
+  width: 600px;
+  box-shadow: 4px 4px 32px -21px rgba(66, 68, 90, 1);
+  border-radius: 10px;
+  padding: 10px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+body {
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.field-name {
+  width: 150px;
+}
+
+.form-header {
+  font-size: 12px;
+  border-bottom: 2px gray solid;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.finish-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.go-back-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+a {
+  color: black;
+}
