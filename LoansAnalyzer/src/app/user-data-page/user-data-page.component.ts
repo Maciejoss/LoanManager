@@ -27,7 +27,6 @@ export class UserDataPageComponent {
   idds: IdType[] = [];
   userInfo: UserInfo;
   emptyUser: UserInfo;
-  filledUser: UserInfo;
 
   constructor(private http: HttpClient) {
     this.http.get(this.jobType_URL).subscribe((data) => {
@@ -51,18 +50,7 @@ export class UserDataPageComponent {
       new JobDetails('123', 1111, null, 'Director', null, null),
       new GovernmentDocument('123', 1111, null, 'DrivingLicense', null)
     );
-
-    this.filledUser = new UserInfo(
-      '123',
-      'e-mail',
-      'Maciej',
-      'Placek',
-      'data',
-      new JobDetails('123', 123, 'dokument', 'Director', 'null', 'null'),
-      new GovernmentDocument('123', 123, 'null', 'DrivingLicense', 'null')
-    );
-
-    this.userInfo = this.filledUser;
+    this.userInfo = this.emptyUser;
   }
 
 
@@ -156,17 +144,11 @@ export class UserDataPageComponent {
 
     this.userInfo.Name = this.NameControl.value!;
     this.userInfo.SurName = this.SurNameControl.value!;
-
     this.userInfo.BirthDate = this.BirthDateControl.value!;
-
     this.userInfo.JobDetails.Name = this.JobTypeControl.value!;
-
     this.userInfo.JobDetails.StartDate = this.JobStartDateControl.value!;
-
     this.userInfo.JobDetails.EndDate = this.JobEndDateControl.value!;
-
     this.userInfo.GovernmentDocument.Name = this.GovDocumentTypeControl.value!;
-
     this.userInfo.GovernmentDocument.Number = this.GovDocumentNumberControl.value!;
 
     if (!this.saveError) {
@@ -187,6 +169,7 @@ export class UserDataPageComponent {
       })!.descripion;
 
       //update Original UserData
+
       //update Database
 
       console.log(JSON.stringify(this.userInfo));

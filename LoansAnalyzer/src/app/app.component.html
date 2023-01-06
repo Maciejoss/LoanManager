@@ -11,7 +11,7 @@
        routerLink="/login-page">Login page</a>
     <a class="nav-item nav-link"
        *ngIf="securityObject!.canAccessAdditionalInfoForm && securityObject!.isAuthenticated"
-       routerLink="/main-page">Edit user info</a>
+       routerLink="/user-data-page">Edit user info</a>
     <a class="nav-item nav-link"
        *ngIf="securityObject!.isAuthenticated"
        (click)="logout()">Logout {{securityObject!.name}}</a>

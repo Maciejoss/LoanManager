@@ -2,7 +2,6 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../services/auth.service';
 import {AppUser} from "../security/app-user";
 import {AppUserAuth} from "../security/app-user-auth";
 import {SecurityService} from "../shared/security/security.service";
@@ -23,7 +22,6 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private service: AuthService,
     private _ngZone: NgZone,
     private securityService: SecurityService) { }
 

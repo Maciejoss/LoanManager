@@ -1,6 +1,5 @@
 import { Component, NgZone} from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-main-page',
@@ -17,7 +16,6 @@ export class MainPageComponent {
 
 
   constructor(private router: Router,
-    private service: AuthService,
     private _ngZone: NgZone,) {
     }
 
@@ -26,20 +24,6 @@ export class MainPageComponent {
   "Maciej","Placek","Imie","pikczer","piątek",
   new JobDetails("",123,"","","",""),
   new GovernmentDocument("",123,"","",""));
-
-    //Log in/out
-
-  public logout(){
-    this.service.signOutExternal();
-    this.userInfo = null;
-  }
-
-  public login(){
-    this.service.signOutExternal();
-    this._ngZone.run(() => {
-      this.router.navigate(['login-page']).then(() => window.location.reload());
-    })
-  }
 
   //Opening side menu
 

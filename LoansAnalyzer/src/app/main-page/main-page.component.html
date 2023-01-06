@@ -23,8 +23,6 @@
   <nav>
     <button (click)="OpenSideMenu()"></button>
     <ul>
-      <li *ngIf="userInfo!=null" ><button  (click)="logout()">Logout</button></li>
-      <li *ngIf="userInfo==null" ><button (click)="login()">Log in</button></li>
       <li><a routerLink="/user-data-page" routerLinkActive="active" ariaCurrentWhenActive="page">Dane użytkownika</a></li>
     </ul>
 
