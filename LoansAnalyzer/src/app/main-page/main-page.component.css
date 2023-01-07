@@ -9,6 +9,7 @@ body{
   justify-content: space-between;
   padding: 20px;
   height: 80%;
+  height: 80%;
 }
 
 footer{
@@ -25,7 +26,6 @@ footer{
 }
 
 .offer{
-  border: black solid 1px;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;

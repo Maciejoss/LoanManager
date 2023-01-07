@@ -66,7 +66,8 @@ body {
 
 .finish-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  margin-top: 24px;
 }
 
 .go-back-button {
@@ -74,6 +75,8 @@ body {
   left: 10px;
   top: 10px;
   cursor: pointer;
-  color: black;
 }
 
+a {
+  color: black;
+}

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MainPageComponent } from './main-page/main-page.component';
+import { MainPageComponent, OfferPopUpComponent } from './main-page/main-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { InquireFormComponent } from './inquire-form/inquire-form.component';
@@ -18,6 +18,12 @@ import { UserDataPageComponent } from './user-data-page/user-data-page.component
 import {MatDatepickerModule} from '@angular/material/datepicker';;
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import { MyInquiresPageComponent } from './my-inquires-page/my-inquires-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {  MatPaginatorModule } from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { UserDataFormComponent } from './user-data-page/user-data-form/user-data-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,10 @@ import {MatSelectModule} from '@angular/material/select';
     PageNotFoundComponent,
     LoginPageComponent,
     InquireFormComponent,
-    UserDataPageComponent
+    UserDataPageComponent,
+    MyInquiresPageComponent,
+    OfferPopUpComponent,
+    UserDataFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +52,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatDatepickerModule,
     MatSelectModule,
     OAuthModule.forRoot(),
-
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

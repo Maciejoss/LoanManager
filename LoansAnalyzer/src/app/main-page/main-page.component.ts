@@ -1,4 +1,5 @@
-import { Component, NgZone, OnInit, Input } from '@angular/core';
+import { Component, NgZone, OnInit, Input, Inject, EventEmitter } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, filter, map } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -12,15 +13,37 @@ export class MainPageComponent {
 
   //Fields required for offers
   oferty:Offer[]=[];
-  show=false;
+  show=0;
   isChosenOffer=false;
   chosenOffer:Offer|undefined;
 
 
   constructor(private router: Router,
     private service: AuthService,
-    private _ngZone: NgZone,) {
+    private _ngZone: NgZone,
+    private dialogRef:MatDialog) {
+      //this.dialogRef.afterAllClosed.subscribe(
+      //  result=>{this.OnDialogClosed(result);}
+      //);
     }
+
+
+    OpenDialog(index:number){
+      const of = this.oferty;
+      const dialog = this.dialogRef.open(OfferPopUpComponent,{data: {of,index}});
+      dialog.componentInstance.onSubmitReason.subscribe((data) => {
+        let index = data.index;
+        let option = data.option;
+        if(option==1)this.SubmitInquire();
+        //i can see 'hello' from MatDialog
+      });
+    }
+
+    SubmitInquire(){
+      this.show=2;
+    }
+
+    //OnDialogClosed(result:any){}
 
     //Basic user info --- TO DO
   userInfo : UserInfo|null = new UserInfo(
@@ -63,11 +86,11 @@ export class MainPageComponent {
   InquireSubmit(event:[number,number]){
     const amount = event[0];
     const instalments = event[1];
-    const o1 = new Offer(instalments,amount,Math.round( amount/instalments*1000));
-    const o2 = new Offer(instalments,amount,Math.round( amount/instalments*1000));
-    const o3 = new Offer(instalments,amount,Math.round( amount/instalments*1000));
+    const o1 = new Offer(1,amount,Math.round( amount/instalments*1000));
+    const o2 = new Offer(2,amount,Math.round( amount/instalments*1000));
+    const o3 = new Offer(3,amount,Math.round( amount/instalments*1000));
     this.oferty = [o1,o2,o3];
-    this.show=true;
+    this.show=1;
   }
 
   //Offers choice
@@ -132,3 +155,53 @@ export class Offer{
   {}
 }
 
+
+@Component({
+  selector: 'Offer-pop-up',
+  templateUrl: './offer-pop-up.component.html',
+  styleUrls: ['./main-page.component.css']
+})
+export class OfferPopUpComponent {
+  constructor(
+    public dialogRef: MatDialogRef<OfferPopUpComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    console.log(data);
+    if(this.data != undefined){
+      this.offerIndex=data.index;
+      this.chosenOffer = this.data.of[this.offerIndex!];
+    }
+  }
+
+  offerIndex:number|undefined;
+  chosenOffer : Offer|undefined;
+
+  onSubmitReason = new EventEmitter();
+
+
+  Cancel(): void {
+    this.onSubmitReason.emit({option:0,index:this.offerIndex})
+    this.dialogRef.close();
+  }
+
+  Confirm(): void {
+    this.onSubmitReason.emit({option:1,index:this.offerIndex})
+    this.dialogRef.close();
+  }
+
+  NextOffer():void{
+    this.offerIndex = (this.offerIndex!+1)%3;
+    console.log(this.offerIndex);
+    this.chosenOffer = this.data.of[this.offerIndex!];
+  }
+  PrevOffer():void{
+    this.offerIndex = (this.offerIndex!-1);
+    if(this.offerIndex==-1)this.offerIndex=2;
+    this.chosenOffer = this.data.of[this.offerIndex!];
+  }
+}
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}

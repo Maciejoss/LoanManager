@@ -1,0 +1,53 @@
+body{
+  display: flex;
+  width: 100%;
+  background-color: azure;
+}
+
+.search{
+  width: 50%;
+  overflow-y: auto;
+}
+
+.search-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.inquiry-in-search{
+  display: flex;
+  flex-direction: column;
+}
+
+#inquiry-display{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-paginator{
+  width: 60%;
+}
+
+
+mat-paginator{
+  align-self: flex-start;
+}
+
+mat-card{
+  margin: 20px;
+}
+
+#inquiry-card{
+  size: auto;
+  width: 40%;
+  align-self: center;
+}
+
+table {
+  width: 100%;
+}
