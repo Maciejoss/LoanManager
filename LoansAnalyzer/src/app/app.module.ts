@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MainPageComponent, OfferPopUpComponent } from './main-page/main-page.component';
+import { MainPageComponent} from './main-page/main-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { InquireFormComponent } from './inquire-form/inquire-form.component';
+import { InquireFormComponent } from './main-page/inquiry-form/inquire-form.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +24,9 @@ import {  MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { UserDataFormComponent } from './user-data-page/user-data-form/user-data-form.component';
+import { PopUpComponent } from './main-page/pop-up/pop-up.component';
+import { SideMenuComponent } from './main-page/side-menu/side-menu.component';
+import { OffersDisplayComponent } from './main-page/offers-display/offers-display.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +37,10 @@ import { UserDataFormComponent } from './user-data-page/user-data-form/user-data
     InquireFormComponent,
     UserDataPageComponent,
     MyInquiresPageComponent,
-    OfferPopUpComponent,
     UserDataFormComponent,
+    PopUpComponent,
+    SideMenuComponent,
+    OffersDisplayComponent,
   ],
   imports: [
     BrowserModule,

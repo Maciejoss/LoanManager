@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import {
-  UserInfo,
-  JobDetails,
-  GovernmentDocument,
-} from '..//../main-page/main-page.component';
 import { JobType } from '../Models/JobTypes/JobType';
 import { IdType } from '../Models/IdTypes/IdType';
 import { IdTypeService } from '../Models/IdTypes/IdType-service';
 import { JobTypeService } from '../Models/JobTypes/JobType-service';
 import { ErrorMessagesProvider } from './ErrorMessagesProvider';
+import { UserDTO } from '../Models/User/UserDTO';
+import { UserPostService } from './UserPost-service';
+import { JobDetails } from 'src/app/user-data-page/Models/User/JobDetails';
+import { GovernmentDocument } from 'src/app/user-data-page/Models/User/GovernmentDocument';
 
 
 @Component({
@@ -27,9 +24,6 @@ export class UserDataFormComponent {
 
   jobTypes: JobType[] = [];
   idTypes: IdType[] = [];
-  userInfo: UserInfo;
-  emptyUser: UserInfo;
-  filledUser: UserInfo;
 
   errorMessagesProvider = new ErrorMessagesProvider();
 
@@ -45,28 +39,6 @@ export class UserDataFormComponent {
 
     this.GetIdDropdownOptions();
     this.GetJobDropdownOptions();
-
-    this.emptyUser = new UserInfo(
-      '123',
-      'e-mail',
-      null,
-      null,
-      null,
-      new JobDetails('123', 1111, null, 'Director', null, null),
-      new GovernmentDocument('123', 1111, null, 'DrivingLicense', null)
-    );
-
-    this.filledUser = new UserInfo(
-      '123',
-      'e-mail',
-      'Maciej',
-      'Placek',
-      'data',
-      new JobDetails('123', 123, 'dokument', 'Director', 'null', 'null'),
-      new GovernmentDocument('123', 123, 'null', 'DrivingLicense', 'null')
-    );
-
-    this.userInfo = this.filledUser;
   }
 
 
@@ -104,6 +76,7 @@ export class UserDataFormComponent {
   }
   // Form submission function
   SubmitForm() {
+
     this.saveError=true;
     if(this.NameControl.valid&&
       this.SurNameControl.valid&&
@@ -115,44 +88,44 @@ export class UserDataFormComponent {
       this.GovDocumentNumberControl.valid
       )this.saveError=false;
 
-
-    this.userInfo.Name = this.NameControl.value!;
-    this.userInfo.SurName = this.SurNameControl.value!;
-
-    this.userInfo.BirthDate = this.BirthDateControl.value!;
-
-    this.userInfo.JobDetails.Name = this.JobTypeControl.value!;
-
-    this.userInfo.JobDetails.StartDate = this.JobStartDateControl.value!;
-
-    this.userInfo.JobDetails.EndDate = this.JobEndDateControl.value!;
-
-    this.userInfo.GovernmentDocument.Name = this.GovDocumentTypeControl.value!;
-
-    this.userInfo.GovernmentDocument.Number = this.GovDocumentNumberControl.value!;
-
     if (this.saveError == false) {
-      this.saveSuccess = true;
 
-      this.userInfo.GovernmentDocument.TypeId = this.idTypes.find((obj) => {
-        return obj.name === this.userInfo.GovernmentDocument.Name;
+      let GovernmentDocumentTypeId = this.idTypes.find((obj) => {
+        return obj.name === this.GovDocumentTypeControl.value;
       })!.id;
-      this.userInfo.GovernmentDocument.Description = this.idTypes.find((obj) => {
-        return obj.name === this.userInfo.GovernmentDocument.Name;
+      let GovernmentDocumentDescription = this.idTypes.find((obj) => {
+        return obj.name === this.GovDocumentTypeControl.value;
       })!.descripion;
 
-      this.userInfo.JobDetails.TypeId = this.jobTypes.find((obj) => {
-        return obj.name === this.userInfo.JobDetails.Name;
+      let JobDetailsTypeId = this.jobTypes.find((obj) => {
+        return obj.name === this.JobTypeControl.value;
       })!.id;
-      this.userInfo.JobDetails.Description = this.jobTypes.find((obj) => {
-        return obj.name === this.userInfo.JobDetails.Name;
+      let JobDetailsDescription = this.jobTypes.find((obj) => {
+        return obj.name === this.JobTypeControl.value;
       })!.descripion;
 
-      //update Original UserData
-      //update Database
+      let UserInfo = new UserDTO(
+        "id",
+        "email",
+        this.NameControl.value!,
+        this.SurNameControl.value!,
+        this.BirthDateControl.value!,
+        new JobDetails(
+          JobDetailsTypeId,
+          this.JobEndDateControl.value!,
+          JobDetailsDescription,
+          this.JobStartDateControl.value!,
+          this.JobEndDateControl.value!
+        ),
+        new GovernmentDocument(
+          GovernmentDocumentTypeId,
+          this.GovDocumentTypeControl.value!,
+          GovernmentDocumentDescription,
+          this.GovDocumentNumberControl.value!
+        )
+      );
 
-      console.log(JSON.stringify(this.userInfo));
-      console.log(this.userInfo);
+      console.log(UserPostService.PostUser(UserInfo));
     }
   }
 
