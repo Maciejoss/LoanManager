@@ -1,4 +1,4 @@
-export class JobDetails{
+export class JobDetailsDTO{
   constructor(
     public TypeId: number,
     public Name: string|null,

@@ -1,0 +1,13 @@
+ul{
+  list-style-type: none;
+  font-size: 20px;
+}
+
+#data-display-card{
+  width: 500px;
+}
+
+.header{
+  font-size: 20px;
+  font-weight: bold;
+}

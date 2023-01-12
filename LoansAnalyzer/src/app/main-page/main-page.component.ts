@@ -41,8 +41,8 @@ export class MainPageComponent {
     //Basic user info --- TO DO
   userInfo : UserInfo|null = new UserInfo(
   "Maciej","Placek","Imie","pikczer","piątek",
-  new JobDetails("",123,"","","",""),
-  new GovernmentDocument("",123,"","",""));
+  new JobDetails(123,"","","",""),
+  new GovernmentDocument(123,"","",""));
 
   //Opening side menu
 

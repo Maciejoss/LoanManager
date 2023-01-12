@@ -1,4 +1,4 @@
-export class GovernmentDocument{
+export class GovernmentDocumentDTO{
   constructor(
     public TypeId: number,
     public Name: string,

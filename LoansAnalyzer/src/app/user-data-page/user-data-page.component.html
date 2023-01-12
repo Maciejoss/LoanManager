@@ -3,6 +3,7 @@
       <a class="go-back-button" routerLink="/main-page">
         <<< Powrót do strony głownej
       </a>
-    <user-data-form></user-data-form>
+    <user-data-form *ngIf="Editting" (SetClientData)="OnClientDataSet($event)" (DiscardClientData)="OnClientDataDiscarded()"></user-data-form>
+    <user-data-display *ngIf="!Editting" [userInfo]="user!" (GoToEditData)="OnEditData()"></user-data-display>
   </div>
 </body>

@@ -7,7 +7,7 @@ export class UserInfo {
   public Name: string|null,
   public SurName: string|null,
   public BirthDate: string|null,
-  public JobDetails: JobDetails,
-  public GovernmentDocument: GovernmentDocument){
+  public JobDetails: JobDetails|null,
+  public GovernmentDocument: GovernmentDocument|null){
   }
 }

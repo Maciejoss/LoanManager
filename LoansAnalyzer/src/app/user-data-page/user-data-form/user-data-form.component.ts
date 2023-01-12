@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { JobType } from '../Models/JobTypes/JobType';
 import { IdType } from '../Models/IdTypes/IdType';
 import { IdTypeService } from '../Models/IdTypes/IdType-service';
 import { JobTypeService } from '../Models/JobTypes/JobType-service';
 import { ErrorMessagesProvider } from './ErrorMessagesProvider';
-import { UserDTO } from '../Models/User/UserDTO';
+import { UserDTO } from '../Models/User/UserDTO/UserDTO';
 import { UserPostService } from './UserPost-service';
-import { JobDetails } from 'src/app/user-data-page/Models/User/JobDetails';
-import { GovernmentDocument } from 'src/app/user-data-page/Models/User/GovernmentDocument';
-
+import { JobDetailsDTO } from '../Models/User/UserDTO/JobDetailsDTO';
+import { GovernmentDocumentDTO } from '../Models/User/UserDTO/GovernmentDocumentDTO';
+import { ConfirmPopUpComponent } from './confirm-pop-up/confirm-pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserInfo } from 'src/app/Models/UserInfo/UserInfo';
 
 @Component({
   selector: 'user-data-form',
@@ -18,9 +20,14 @@ import { GovernmentDocument } from 'src/app/user-data-page/Models/User/Governmen
 })
 export class UserDataFormComponent {
 
+  @Output() SetClientData = new EventEmitter<UserDTO>();
+  @Output() DiscardClientData = new EventEmitter<UserDTO>();
+
   hide = true;
   saveError = false;
   saveSuccess = false;
+
+  UserInfo:UserDTO|null = null;
 
   jobTypes: JobType[] = [];
   idTypes: IdType[] = [];
@@ -35,7 +42,7 @@ export class UserDataFormComponent {
     this.jobTypes = await JobTypeService.PopulateJobsDropdown();
   }
 
-  constructor() {
+  constructor(private dialogRef:MatDialog) {
 
     this.GetIdDropdownOptions();
     this.GetJobDropdownOptions();
@@ -75,7 +82,7 @@ export class UserDataFormComponent {
     return '';
   }
   // Form submission function
-  SubmitForm() {
+  async SubmitForm() {
 
     this.saveError=true;
     if(this.NameControl.valid&&
@@ -104,20 +111,20 @@ export class UserDataFormComponent {
         return obj.name === this.JobTypeControl.value;
       })!.descripion;
 
-      let UserInfo = new UserDTO(
-        "id",
-        "email",
+      this.UserInfo = new UserDTO(
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         this.NameControl.value!,
         this.SurNameControl.value!,
+        "email",
         this.BirthDateControl.value!,
-        new JobDetails(
+        new JobDetailsDTO(
           JobDetailsTypeId,
-          this.JobEndDateControl.value!,
+          this.JobTypeControl.value!,
           JobDetailsDescription,
           this.JobStartDateControl.value!,
           this.JobEndDateControl.value!
         ),
-        new GovernmentDocument(
+        new GovernmentDocumentDTO(
           GovernmentDocumentTypeId,
           this.GovDocumentTypeControl.value!,
           GovernmentDocumentDescription,
@@ -125,11 +132,24 @@ export class UserDataFormComponent {
         )
       );
 
-      console.log(UserPostService.PostUser(UserInfo));
+      if(await UserPostService.PostUser(this.UserInfo)){this.OpenConfirmDialog();}
     }
   }
 
   DiscardForm() {
-    window.location.reload();
+    this.DiscardClientData.emit();
   }
+
+  OpenConfirmDialog(){
+    const dialog = this.dialogRef.open(ConfirmPopUpComponent,{data: {}});
+    dialog.componentInstance.onCloseReason.subscribe((data) => {
+      if(data)this.SaveUserInfo();
+    });
+  }
+
+  SaveUserInfo(){
+    this.SetClientData.emit(this.UserInfo!);
+  }
+
+
 }

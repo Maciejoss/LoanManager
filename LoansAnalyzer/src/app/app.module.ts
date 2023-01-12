@@ -27,6 +27,9 @@ import { UserDataFormComponent } from './user-data-page/user-data-form/user-data
 import { PopUpComponent } from './main-page/pop-up/pop-up.component';
 import { SideMenuComponent } from './main-page/side-menu/side-menu.component';
 import { OffersDisplayComponent } from './main-page/offers-display/offers-display.component';
+import { UserDataDisplayComponent } from './user-data-page/user-data-display/user-data-display.component';
+import {MatListModule} from '@angular/material/list';
+import { ConfirmPopUpComponent } from './user-data-page/user-data-form/confirm-pop-up/confirm-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,8 @@ import { OffersDisplayComponent } from './main-page/offers-display/offers-displa
     PopUpComponent,
     SideMenuComponent,
     OffersDisplayComponent,
+    UserDataDisplayComponent,
+    ConfirmPopUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,8 @@ import { OffersDisplayComponent } from './main-page/offers-display/offers-displa
     MatDialogModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
