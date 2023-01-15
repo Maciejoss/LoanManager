@@ -1,0 +1,89 @@
+<div *ngIf="inquiryContent">
+    <ul class="no-bullets">
+        <li>
+            <h1>Client Detals</h1>
+            <ul class="no-bullets">
+                <li>
+                    <h2>Info</h2>
+                    <ul class="no-bullets">
+                        <li> <p>Name: {{inquiryContent.client.name}}</p> </li>
+                        <li> <p>Surname: {{inquiryContent.client.surname}}</p> </li>
+                        <li> <p>Email: {{inquiryContent.client.email}}</p> </li>
+                        <li> <p>Birth Date: {{inquiryContent.client.birthDate}}</p> </li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>Job</h2>
+                    <ul class="no-bullets">
+                        <li> <p>Name: {{inquiryContent.client.jobDetails.name}}</p> </li>
+                        <li> <p>Description: {{inquiryContent.client.jobDetails.description}}</p> </li>
+                        <li> <p>Start Date: {{inquiryContent.client.jobDetails.startDate}}</p> </li>
+                        <li> <p>End Date: {{inquiryContent.client.jobDetails.endDate}}</p> </li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>Government Document</h2>
+                    <ul class="no-bullets">
+                        <li> <p>Name: {{inquiryContent.client.governmentDocument.name}}</p> </li>
+                        <li> <p>Description: {{inquiryContent.client.governmentDocument.description}}</p> </li>
+                        <li> <p>Number: {{inquiryContent.client.governmentDocument.number}}</p> </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <h1>Inquiry Detals</h1>
+            <ul class="no-bullets">
+                <li> <p>Id: {{inquiryContent.inquiryID}}</p> </li>
+                <li> <p>Value: {{inquiryContent.value}}</p> </li>
+                <li> <p>Installments Number: {{inquiryContent.instalmentsNumber}}</p> </li>
+                <li> <p>Start Date: {{inquiryContent.startDate}}</p> </li>
+                <li> <p>End Date: {{inquiryContent.endDate}}</p> </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div *ngIf="offerContent">
+    <ul class="offer-main">
+        <li>
+            <h1> Reviewer Details</h1>
+            <ul class="no-bullets">
+                <ng-template [ngIf]="offerContent.reviewer" [ngIfElse]="noReviewer">
+                    <li> <p>Name: {{offerContent.reviewer.name}}</p> </li>
+                    <li> <p>Surname: {{offerContent.reviewer.surname}}</p> </li>
+                    <li> <p>Email: {{offerContent.reviewer.email}}</p> </li>
+                </ng-template>
+                <ng-template #noReviewer>
+                    <li> <p>No reviewer assigned.</p> </li>
+                </ng-template>
+            </ul>            
+        </li>
+        <li>
+            <h1>Document</h1>
+            <ul class="no-bullets">
+                <!-- TODO: add document link -->
+                <li> <p>Document Link Valid Date: {{offerContent.documentLinkValidDate}}</p> </li>
+            </ul>
+        </li>
+        <li>
+            <h1>Offer Details</h1>
+            <ul class="no-bullets">
+                <li> <p>Id: {{offerContent.offerID}}</p> </li>
+                <li> <p>Percentage: {{offerContent.percentage}}</p> </li>
+                <li> <p>Monthly Installments: {{offerContent.monthlyInstallment}}</p> </li>
+                <li> <p>Requested Value: {{offerContent.requestedValue}}</p> </li>
+                <li> <p>Requested Period In Month: {{offerContent.requestedPeriodInMonth}}</p> </li>
+                <li> <p>Inquiry Id: {{offerContent.inquiryID}}</p> </li>
+                <li> <p>Create Date: {{offerContent.createDate}}</p> </li>
+                <li> <p>Update Date: {{offerContent.updateDate}}</p> </li>
+                <li> <p>Status: {{offerContent.statusDescription}}</p> </li>
+            </ul>
+        </li>
+    </ul>
+    <div *ngIf="offerContent.statusDescription == 'Created'" class="button-row">
+        <button mat-raised-button (click)="OnAccept(offerContent)" color="primary">Approve</button>
+        <button mat-raised-button (click)="OnDecline(offerContent)" color="warn">Decline</button>
+    </div>
+</div>
+
+

@@ -2,11 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import {
-  UserInfo,
-  JobDetails,
-  GovernmentDocument,
-} from '../main-page/main-page.component';
+import { GovernmentDocument, JobDetails, UserInfo } from '../models/models';
 
 @Component({
   selector: 'user-data-page',
@@ -154,36 +150,36 @@ export class UserDataPageComponent {
       )this.saveError=false;
 
 
-    this.userInfo.Name = this.NameControl.value!;
-    this.userInfo.SurName = this.SurNameControl.value!;
+    this.userInfo.name = this.NameControl.value!;
+    this.userInfo.surname = this.SurNameControl.value!;
 
-    this.userInfo.BirthDate = this.BirthDateControl.value!;
+    this.userInfo.birthDate = this.BirthDateControl.value!;
 
-    this.userInfo.JobDetails.Name = this.JobTypeControl.value!;
+    this.userInfo.jobDetails.name = this.JobTypeControl.value!;
 
-    this.userInfo.JobDetails.StartDate = this.JobStartDateControl.value!;
+    this.userInfo.jobDetails.startDate = this.JobStartDateControl.value!;
 
-    this.userInfo.JobDetails.EndDate = this.JobEndDateControl.value!;
+    this.userInfo.jobDetails.endDate = this.JobEndDateControl.value!;
 
-    this.userInfo.GovernmentDocument.Name = this.GovDocumentTypeControl.value!;
+    this.userInfo.governmentDocument.name = this.GovDocumentTypeControl.value!;
 
-    this.userInfo.GovernmentDocument.Number = this.GovDocumentNumberControl.value!;
+    this.userInfo.governmentDocument.number = this.GovDocumentNumberControl.value!;
 
     if (this.saveError == false) {
       this.saveSuccess = true;
 
-      this.userInfo.GovernmentDocument.TypeId = this.idds.find((obj) => {
-        return obj.name === this.userInfo.GovernmentDocument.Name;
+      this.userInfo.governmentDocument.typeId = this.idds.find((obj) => {
+        return obj.name === this.userInfo.governmentDocument.name;
       })!.id;
-      this.userInfo.GovernmentDocument.Description = this.idds.find((obj) => {
-        return obj.name === this.userInfo.GovernmentDocument.Name;
+      this.userInfo.governmentDocument.description = this.idds.find((obj) => {
+        return obj.name === this.userInfo.governmentDocument.name;
       })!.descripion;
 
-      this.userInfo.JobDetails.TypeId = this.jobbs.find((obj) => {
-        return obj.name === this.userInfo.JobDetails.Name;
+      this.userInfo.jobDetails.typeId = this.jobbs.find((obj) => {
+        return obj.name === this.userInfo.jobDetails.name;
       })!.id;
-      this.userInfo.JobDetails.Description = this.jobbs.find((obj) => {
-        return obj.name === this.userInfo.JobDetails.Name;
+      this.userInfo.jobDetails.description = this.jobbs.find((obj) => {
+        return obj.name === this.userInfo.jobDetails.name;
       })!.descripion;
 
       //update Original UserData

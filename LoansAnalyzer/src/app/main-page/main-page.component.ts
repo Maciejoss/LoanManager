@@ -1,7 +1,8 @@
-import { Component, NgZone, OnInit, Input, Inject, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, filter, map } from 'rxjs';
+import { Component, NgZone, OnInit, Input, Inject, EventEmitter } from '@angular/core';
+import { GovernmentDocument, JobDetails, UserInfo } from '../models/models';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -58,7 +59,7 @@ export class MainPageComponent {
     this.userInfo = null;
   }
 
-  public login(){
+  public login() {
     this.service.signOutExternal();
     this._ngZone.run(() => {
       this.router.navigate(['login-page']).then(() => window.location.reload());
@@ -75,7 +76,7 @@ export class MainPageComponent {
     this.sideMenu = document.querySelector('.side-menu');
   }
 
-  OpenSideMenu(){
+  OpenSideMenu() {
     console.log(this.menuBtn);
     this.sideMenu?.classList.toggle('is-active');
     this.menuBtn?.classList.toggle('is-active');
@@ -105,45 +106,6 @@ export class MainPageComponent {
     // TO DO
   }
 
-}
-
-export class UserInfo {
-  constructor(public ub: string, //unique userID
-  public Email: string|null,
-  public Name: string|null,
-  public SurName: string|null,
-  public BirthDate: string|null,
-  public JobDetails: JobDetails,
-  public GovernmentDocument: GovernmentDocument){
-  }
-}
-
-export class JobDetails{
-  constructor(
-    public Id: string,
-    public TypeId: number,
-    public Name: string|null,
-    public Description: string,
-    public StartDate: string|null,
-    public EndDate?: string|null,
-  ){}
-}
-
-export class GovernmentDocument{
-  constructor(
-    public Id: string,
-    public TypeId: number,
-    public Name: string|null,
-    public Description: string,
-    public Number: string|null
-  ){}
-}
-
-export class InquireInfo {
-  constructor(public userInfo: UserInfo,
-    instalments: Int16Array,
-    amount: Int16Array
-    ){}
 }
 
 export class Offer{
