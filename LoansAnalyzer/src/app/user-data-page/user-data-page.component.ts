@@ -2,11 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import {
-  UserInfo,
-  JobDetails,
-  GovernmentDocument,
-} from '../main-page/main-page.component';
+import {UserInfo} from "../shared/models/userInfo";
+import {JobDetails} from "../shared/models/jobDetails";
+import {GovernmentDocument} from "../shared/models/governmentDocument";
 
 @Component({
   selector: 'user-data-page',

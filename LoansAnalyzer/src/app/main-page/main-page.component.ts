@@ -1,5 +1,9 @@
 import { Component, NgZone} from '@angular/core';
 import { Router } from '@angular/router';
+import {Offer} from "../shared/models/offer";
+import {UserInfo} from "../shared/models/userInfo";
+import {JobDetails} from "../shared/models/jobDetails";
+import {GovernmentDocument} from "../shared/models/governmentDocument";
 
 @Component({
   selector: 'app-main-page',
@@ -67,51 +71,8 @@ export class MainPageComponent {
 
 }
 
-export class UserInfo {
-  constructor(public ub: string, //unique userID
-  public Email: string|null,
-  public Name: string|null,
-  public SurName: string|null,
-  public BirthDate: string|null,
-  public JobDetails: JobDetails,
-  public GovernmentDocument: GovernmentDocument){
-  }
-}
 
-export class JobDetails{
-  constructor(
-    public Id: string,
-    public TypeId: number,
-    public Name: string|null,
-    public Description: string,
-    public StartDate: string|null,
-    public EndDate?: string|null,
-  ){}
-}
 
-export class GovernmentDocument{
-  constructor(
-    public Id: string,
-    public TypeId: number,
-    public Name: string|null,
-    public Description: string,
-    public Number: string|null
-  ){}
-}
 
-export class InquireInfo {
-  constructor(public userInfo: UserInfo,
-    instalments: Int16Array,
-    amount: Int16Array
-    ){}
-}
 
-export class Offer{
-  constructor(
-    public instalments:number,
-    public amount:number,
-    public instalmentToPay:number
-  )
-  {}
-}
 
