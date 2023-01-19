@@ -133,6 +133,8 @@ export class UserDataFormComponent {
         )
       );
 
+      console.log(this.UserInfo);
+
       if(await UserPostService.PostUser(this.UserInfo)){this.OpenConfirmDialog();}
     }
   }
