@@ -1,0 +1,43 @@
+.mat-toolbar {
+    height: 100px;
+}
+
+.mat-toolbar mat-icon {
+    width: 90px;
+    height: 90px;
+    font-size: 90px;
+}
+
+.employee-data {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 0.8em;
+}
+
+.content {
+    display: flex;
+}
+
+.mat-tab-group ::ng-deep .mat-tab-header {
+    border-bottom: none;
+}
+
+.mat-tab-group {
+    min-width: 400px;
+    max-width: 500px;
+    text-align: center;
+    justify-content: center;
+}
+
+.mat-card {
+    margin: 20px;
+    margin-top: 69px;
+    min-width: 400px;
+    height: 80vh;
+    flex-grow: 1;
+    overflow: hidden; 
+    overflow-y: scroll; 
+    /* background-color: aqua; */
+}

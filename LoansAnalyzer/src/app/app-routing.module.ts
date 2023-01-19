@@ -5,8 +5,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDataPageComponent } from './user-data-page/user-data-page.component';
 import { MyInquiresPageComponent } from './my-inquires-page/my-inquires-page.component';
+import { EmployeePageComponent } from './employee-page/employee-page.component';
 
 const routes: Routes = [
+  { path: 'employee-page', component: EmployeePageComponent },
   { path: 'main-page', component: MainPageComponent },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'user-data-page', component: UserDataPageComponent},

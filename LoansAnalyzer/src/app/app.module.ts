@@ -15,9 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { UserDataPageComponent } from './user-data-page/user-data-page.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';;
+import { MatDatepickerModule } from '@angular/material/datepicker';;
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
 import { MyInquiresPageComponent } from './my-inquires-page/my-inquires-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {  MatPaginatorModule } from '@angular/material/paginator';
@@ -60,7 +59,6 @@ import { ConfirmPopUpComponent } from './user-data-page/user-data-form/confirm-p
     NgbModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatSelectModule,
     OAuthModule.forRoot(),
     MatDialogModule,
     MatPaginatorModule,

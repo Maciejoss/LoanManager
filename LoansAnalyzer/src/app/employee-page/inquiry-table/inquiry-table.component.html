@@ -1,0 +1,34 @@
+<mat-card class="tableContent">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Filter" (keyup)="FilterChange($event)">
+    </mat-form-field>
+
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.inquiryID}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Client </th>
+                <td mat-cell *matCellDef="let element"> {{element.client.name + ' ' + element.client.surname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-button (click)="OnSelect(element)">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+</mat-card>

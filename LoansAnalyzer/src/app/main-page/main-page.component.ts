@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { MatDialog} from '@angular/material/dialog';
+import { Component, EventEmitter, Inject} from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { GovernmentDocument } from '../Models/GovernmentDocument/GovernmentDocument';
 import { JobDetails } from '../Models/JobDetails/JobDetails';
 import { UserInfo } from '../Models/UserInfo/UserInfo';
@@ -54,7 +54,7 @@ export class MainPageComponent {
     this.sideMenu = document.querySelector('.side-menu');
   }
 
-  OpenSideMenu(){
+  OpenSideMenu() {
     console.log(this.menuBtn);
     this.sideMenu?.classList.toggle('is-active');
     this.menuBtn?.classList.toggle('is-active');
@@ -80,4 +80,13 @@ export class MainPageComponent {
     // TO DO
   }
 
+}
+
+export class Offer{
+  constructor(
+    public instalments:number,
+    public amount:number,
+    public instalmentToPay:number
+  )
+  {}
 }
