@@ -1,8 +1,6 @@
 <nav>
   <button (click)="CloseMenu()"></button>
   <ul>
-    <li *ngIf="userInfo!=null" ><button  (click)="logout()">Logout</button></li>
-    <li *ngIf="userInfo==null" ><button (click)="login()">Log in</button></li>
     <li><a routerLink="/user-data-page" routerLinkActive="active" ariaCurrentWhenActive="page">Dane użytkownika</a></li>
     <li><a routerLink="/my-inquires-page" routerLinkActive="active" ariaCurrentWhenActive="page">Moje Wnioski</a></li>
   </ul>
