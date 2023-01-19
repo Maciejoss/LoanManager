@@ -14,7 +14,7 @@
        routerLink="/my-inquires-page">My inquiries</a>
     <a class="nav-item nav-link"
        *ngIf="securityObject!.canAccessEmployeePage && securityObject!.isAuthenticated"
-       routerLink="/app-employee-page">Edit user info</a>
+       routerLink="/app-employee-page">Employee page</a>
     <a class="nav-item nav-link"
        *ngIf="securityObject!.isAuthenticated"
        (click)="logout()">Logout {{securityObject!.name}}</a>
