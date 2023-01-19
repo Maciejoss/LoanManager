@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Inject} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { GovernmentDocument } from '../Models/GovernmentDocument/GovernmentDocument';
+import { InquiryWithId } from '../Models/Inquiry/InquiryWithId';
 import { JobDetails } from '../Models/JobDetails/JobDetails';
 import { UserInfo } from '../Models/UserInfo/UserInfo';
+import { InquiryPostService } from './InquiryPost-service';
 import { InquiryInfo } from './Offers/Models/InquiryInfo';
 import { OfferInfo } from './Offers/Models/OfferInfo';
 import { InquirySendService } from './Offers/Services/InquirySend-service';
@@ -63,8 +65,11 @@ export class MainPageComponent {
   //Basic Inquire Submition --- TO DO
 
   async InquireSubmit(event:[number,number]){
-    let inquiry = new InquiryInfo(this.userInfo!,event[0],event[1]);
-    this.oferty = await InquirySendService.SendInquires(inquiry);
+    let inquiry = new InquiryWithId("37846734-172e-4149-8cec-6f43d1eb3f60",event[1],event[0],"2023-01-23T22:00:41.006Z");
+    let response = await InquiryPostService.PostInquiry(inquiry);
+    this.oferty = [new OfferInfo(event[1],event[0],Math.floor((response.monthlyInstallment*1000))),
+    new OfferInfo(event[1],event[0],Math.floor((response.monthlyInstallment*1000))),
+    new OfferInfo(event[1],event[0],Math.floor((response.monthlyInstallment*1000)))];
     this.show=1;
   }
 
