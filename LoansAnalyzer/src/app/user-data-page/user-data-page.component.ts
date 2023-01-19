@@ -1,14 +1,8 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import {UserInfo} from "../shared/models/userInfo";
-import {JobDetails} from "../shared/models/jobDetails";
-import {GovernmentDocument} from "../shared/models/governmentDocument";
-import {SecurityService} from "../shared/security/security.service";
-import {AppUserAuth} from "../security/app-user-auth";
-import {tap} from "rxjs";
-import {userType} from "../shared/enums/userType";
+import { GovernmentDocument, JobDetails, UserInfo } from '../models/models';
 
 @Component({
   selector: 'user-data-page',
@@ -29,11 +23,9 @@ export class UserDataPageComponent {
   idds: IdType[] = [];
   userInfo: UserInfo;
   emptyUser: UserInfo;
+  filledUser: UserInfo;
 
-  constructor(private http: HttpClient,
-    private securityService: SecurityService
-  ) {
-
+  constructor(private http: HttpClient) {
     this.http.get(this.jobType_URL).subscribe((data) => {
       (data as Object[]).forEach((element) => {
         this.jobbs.push(new JobType(element));
@@ -55,7 +47,18 @@ export class UserDataPageComponent {
       new JobDetails('123', 1111, null, 'Director', null, null),
       new GovernmentDocument('123', 1111, null, 'DrivingLicense', null)
     );
-    this.userInfo = this.emptyUser;
+
+    this.filledUser = new UserInfo(
+      '123',
+      'e-mail',
+      'Maciej',
+      'Placek',
+      'data',
+      new JobDetails('123', 123, 'dokument', 'Director', 'null', 'null'),
+      new GovernmentDocument('123', 123, 'null', 'DrivingLicense', 'null')
+    );
+
+    this.userInfo = this.filledUser;
   }
 
 
@@ -147,34 +150,39 @@ export class UserDataPageComponent {
       )this.saveError=false;
 
 
-    this.userInfo.Name = this.NameControl.value!;
-    this.userInfo.SurName = this.SurNameControl.value!;
-    this.userInfo.BirthDate = this.BirthDateControl.value!;
-    this.userInfo.JobDetails.Name = this.JobTypeControl.value!;
-    this.userInfo.JobDetails.StartDate = this.JobStartDateControl.value!;
-    this.userInfo.JobDetails.EndDate = this.JobEndDateControl.value!;
-    this.userInfo.GovernmentDocument.Name = this.GovDocumentTypeControl.value!;
-    this.userInfo.GovernmentDocument.Number = this.GovDocumentNumberControl.value!;
+    this.userInfo.name = this.NameControl.value!;
+    this.userInfo.surname = this.SurNameControl.value!;
 
-    if (!this.saveError) {
+    this.userInfo.birthDate = this.BirthDateControl.value!;
+
+    this.userInfo.jobDetails.name = this.JobTypeControl.value!;
+
+    this.userInfo.jobDetails.startDate = this.JobStartDateControl.value!;
+
+    this.userInfo.jobDetails.endDate = this.JobEndDateControl.value!;
+
+    this.userInfo.governmentDocument.name = this.GovDocumentTypeControl.value!;
+
+    this.userInfo.governmentDocument.number = this.GovDocumentNumberControl.value!;
+
+    if (this.saveError == false) {
       this.saveSuccess = true;
 
-      this.userInfo.GovernmentDocument.TypeId = this.idds.find((obj) => {
-        return obj.name === this.userInfo.GovernmentDocument.Name;
+      this.userInfo.governmentDocument.typeId = this.idds.find((obj) => {
+        return obj.name === this.userInfo.governmentDocument.name;
       })!.id;
-      this.userInfo.GovernmentDocument.Description = this.idds.find((obj) => {
-        return obj.name === this.userInfo.GovernmentDocument.Name;
+      this.userInfo.governmentDocument.description = this.idds.find((obj) => {
+        return obj.name === this.userInfo.governmentDocument.name;
       })!.descripion;
 
-      this.userInfo.JobDetails.TypeId = this.jobbs.find((obj) => {
-        return obj.name === this.userInfo.JobDetails.Name;
+      this.userInfo.jobDetails.typeId = this.jobbs.find((obj) => {
+        return obj.name === this.userInfo.jobDetails.name;
       })!.id;
-      this.userInfo.JobDetails.Description = this.jobbs.find((obj) => {
-        return obj.name === this.userInfo.JobDetails.Name;
+      this.userInfo.jobDetails.description = this.jobbs.find((obj) => {
+        return obj.name === this.userInfo.jobDetails.name;
       })!.descripion;
 
       //update Original UserData
-
       //update Database
 
       console.log(JSON.stringify(this.userInfo));
@@ -185,16 +193,6 @@ export class UserDataPageComponent {
   DiscardForm() {
     window.location.reload();
   }
-
-  handleFormSubmit(){
-    const userInfoUrl = this.path + '/' + this.securityService.securityObject.id + '/additionalInfo';
-
-    this.http.post<UserInfo>(
-      this.path + "User/LoginWithGoogle",
-      JSON.stringify(this.userInfo),
-      { headers: new HttpHeaders().set('Content-type', 'application/json') });
-  }
-
 }
 
 export class JobType {

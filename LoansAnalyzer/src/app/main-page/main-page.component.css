@@ -9,6 +9,7 @@ body{
   justify-content: space-between;
   padding: 20px;
   height: 80%;
+  height: 80%;
 }
 
 footer{
@@ -16,7 +17,7 @@ footer{
   height: 30%;
 }
 
-.offers{
+#offers{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -25,9 +26,9 @@ footer{
 }
 
 .offer{
-  border: black solid 1px;
   border-radius: 10px;
   padding: 10px;
+  margin-bottom: 10px;
   height: 100%;
   margin-bottom: 5px;
 }
@@ -59,7 +60,7 @@ footer{
   width: 100%;
   height: 4px;
   background-color: black;
-  margin: 4px 0;
+  margin: 4px 0px;
   transition: 0.4s;
 }
 
@@ -93,7 +94,7 @@ footer{
 }
 
 .side-menu.is-active{
-  left:0;
+  left:0px;
 }
 
 ul{

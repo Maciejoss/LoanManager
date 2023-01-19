@@ -1,5 +1,5 @@
-
-import { Component, EventEmitter, Output } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component,OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-inquire-form',

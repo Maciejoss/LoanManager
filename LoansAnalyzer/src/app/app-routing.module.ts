@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AuthGuard} from "./shared/guards/auth.guard";
 import { UserDataPageComponent } from './user-data-page/user-data-page.component';
+import { MyInquiresPageComponent } from './my-inquires-page/my-inquires-page.component';
+import { EmployeePageComponent } from './employee-page/employee-page.component';
 
 const routes: Routes = [
   { path: 'main-page',
@@ -22,6 +24,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {claimType: 'canAccessAdditionalInfoForm'}
   },
+  { path: 'employee-page', component: EmployeePageComponent },
+  { path: 'my-inquires-page', component: MyInquiresPageComponent},
   { path: '',   redirectTo: 'main-page', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

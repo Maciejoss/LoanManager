@@ -9,6 +9,7 @@
     <button (click)="OpenSideMenu()"></button>
     <ul>
       <li><a routerLink="/user-data-page" routerLinkActive="active" ariaCurrentWhenActive="page">Dane użytkownika</a></li>
+      <li><a routerLink="/my-inquires-page" routerLinkActive="active" ariaCurrentWhenActive="page">Moje Wnioski</a></li>
     </ul>
 
   </nav>
@@ -19,31 +20,24 @@
     <h2>Korzystaj z życia.</h2>
     <h3>łatwo · prosto · szybko</h3>
   </div>
-  <div class="form-container">
+  <mat-card class="form-container">
     <app-inquire-form (status) = "InquireSubmit($event)"></app-inquire-form>
-  </div>
+  </mat-card>
 </body>
 <footer>
-  <div *ngIf="show==true && isChosenOffer==false">
-    <div *ngFor="let offer of oferty" class="offer">
-      <div>
+  <div *ngIf="show==1 && isChosenOffer==false" id="offers">
+    <div *ngFor="let offer of oferty">
+      <mat-card class="offer">
         <h2>Bank Offer</h2>
         <p>Amount of money: <strong>{{offer.amount}} 000</strong></p>
         <p>Number of instalments: <strong>{{offer.instalments}}</strong></p>
         <p>Installment value: <strong>{{offer.instalmentToPay}}</strong></p>
-        <button mat-raised-button color="primary" (click)="ChooseOffer(offer)">Choose</button>
-      </div>
+        <button mat-raised-button color="primary" (click)="OpenDialog(0)">Choose</button>
+      </mat-card>
     </div>
   </div>
-  <div *ngIf="show==true && isChosenOffer==true">
-    <div>
-      <div (click)="LeaveOffer()" class="go-back-button"><strong><--</strong></div>
-      <h2>Bank Offer</h2>
-      <p>Amount of money: <strong>{{chosenOffer!.amount}} 000</strong></p>
-      <p>Number of instalments: <strong>{{chosenOffer!.instalments}}</strong></p>
-      <p>Installment value: <strong>{{chosenOffer!.instalmentToPay}}</strong></p>
-      <button mat-raised-button color="primary" (click)="ApplyForALoan(chosenOffer!)">Apply for the loan</button>
-    </div>
+  <div *ngIf="show==2" id="podsumowanie">
+    Wniosek został złożony, jego status możesz sprawdzić w zakładce moje wnioski.
   </div>
 
 </footer>

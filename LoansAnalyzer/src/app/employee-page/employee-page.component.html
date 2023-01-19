@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+    <!-- TODO: bind employee data -->    
+        <mat-icon>account_circle</mat-icon>
+    <div class="employee-data">
+        <span>Name: ...</span>
+        <span>Surname: ...</span>
+        <span>Email: ...</span>
+    </div>
+</mat-toolbar>
+
+<div class="content">
+    <mat-tab-group>
+        <mat-tab label="Bank Offers"> <app-offer-table 
+            [service]="service" (childToParent)="offerToContent($event)"></app-offer-table>
+        </mat-tab>
+        <mat-tab label="Bank Inquiries"> <app-inquiry-table
+            [service]="service" (childToParent)="inquiryToContent($event)"></app-inquiry-table> 
+        </mat-tab>
+    </mat-tab-group>
+
+    <mat-card>
+        <app-content 
+            [inquiryContent]="selectedInquiry" 
+            [offerContent]="selectedOffer" 
+            [service]="service">
+        </app-content>
+    </mat-card>
+</div>

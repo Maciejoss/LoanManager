@@ -1,0 +1,12 @@
+ul.no-bullets, ul.offer-main {
+    list-style-type: none;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-evenly;
+    position: sticky;
+    /* position: absolute;
+    bottom: 50px; */
+    width: 100%;
+}

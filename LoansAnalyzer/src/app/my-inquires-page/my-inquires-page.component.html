@@ -1,0 +1,110 @@
+
+<body>
+
+<div class="search">
+  <mat-card>
+
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="aaa" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+  <!-- Bank Name Column -->
+  <ng-container matColumnDef="bankName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by bankName">
+      Bank Name
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.bankName}} </td>
+  </ng-container>
+
+  <!-- Amount Column -->
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by amount">
+      Wartość Kredytu
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+  </ng-container>
+
+    <!-- Instalments Column -->
+    <ng-container matColumnDef="instalments">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by instalments">
+        Ilość rat
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.instalments}} </td>
+    </ng-container>
+
+    <!-- InstalmentValue Column -->
+    <ng-container matColumnDef="instalmentValue">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by instalmentValue">
+        Wartość raty
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.instalmentValue}} </td>
+    </ng-container>
+
+
+    <!-- SubmissionDate Column -->
+    <ng-container matColumnDef="submissionDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by submissionDate">
+        Data złożenia wniosku
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.submissionDate | date}}</td>
+    </ng-container>
+
+    <!-- SubmissionButton Column -->
+    <ng-container matColumnDef="submissionButton">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element"><button mat-button (click)="ChooseInquiry(element)">Wybierz</button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <div class="search-header">
+    <mat-paginator
+    [length]="InquiresList.length"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 30]"
+    aria-label="Select page">
+    </mat-paginator>
+
+    <button mat-button (click)="ChooseLatestInquiry()">Zobacz najnowszy wniosek</button>
+  </div>
+
+  <mat-card-footer *ngIf="false">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>
+
+</div>
+
+<div id="inquiry-display">
+  <mat-card *ngIf="ChoosenInquiry!=undefined" id="inquiry-card">
+    <mat-card-header>
+      <mat-card-title>{{ChoosenInquiry.bankName}}</mat-card-title>
+      <mat-card-subtitle>Jakiś tam podpis</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <ul>
+        <li>Wartość Kredytu: {{ChoosenInquiry.amount}}</li>
+        <li>Liczba Rat: {{ChoosenInquiry.instalments}}</li>
+        <li>Wartość pojedynczej raty: {{ChoosenInquiry.instalmentValue}}</li>
+        <li>Data rozpoczęcia kredytu: {{ChoosenInquiry.submissionDate | date}}</li>
+        <li>Data zakończenia kredytu: {{ChoosenInquiry.amount}}</li>
+      </ul>
+      <container-element [ngSwitch]="ChoosenInquiry.status">
+        <div *ngSwitchCase="InquiryStatus.pending" style="color:blue">Oczekująca</div>
+        <div *ngSwitchCase="InquiryStatus.accepted" style="color:green">Zaakceptowana</div>
+        <div *ngSwitchCase="InquiryStatus.rejected" style="color:red">Odrzucona</div>
+      </container-element>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+</body>

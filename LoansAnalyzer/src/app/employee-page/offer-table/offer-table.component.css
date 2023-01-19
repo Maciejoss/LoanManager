@@ -1,0 +1,43 @@
+mat-card {
+    height: 80vh;
+    margin: 20px;
+}
+
+.tableContent {
+    overflow: auto;
+}
+
+.mat-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.mat-column-id {
+    width: 10%;
+}
+
+.mat-column-reviewer {
+    width: 40%;
+}
+
+.mat-column-state {
+    width: 40;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+    text-align: center;
+    justify-content: center;
+}
+
+th,
+td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+mat-paginator {
+    bottom: -20px;
+    position: sticky;
+}
