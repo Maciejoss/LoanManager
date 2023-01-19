@@ -1,10 +1,10 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../services/auth.service';
-import { GoogleApiService, UserInfo } from './google-api/google-api.service';
+import {AppUser} from "../security/app-user";
+import {AppUserAuth} from "../security/app-user-auth";
+import {SecurityService} from "../shared/security/security.service";
 
 @Component({
   selector: 'app-login-page',
@@ -14,15 +14,22 @@ import { GoogleApiService, UserInfo } from './google-api/google-api.service';
 export class LoginPageComponent implements OnInit {
 
   private clientId = environment.clientId;
+  private returnUrl: string | undefined;
+
+  user: AppUser = new AppUser();
+  securityObject: AppUserAuth | undefined;
 
   constructor(
     private router: Router,
-    private service: AuthService,
-    private _ngZone: NgZone) { }
+    private route: ActivatedRoute,
+    private _ngZone: NgZone,
+    private securityService: SecurityService) { }
 
     ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')!;
+
       // @ts-ignore
-      window.onGoogleLibraryLoad = () => {
+  //    window.onGoogleLibraryLoad = () => {
         // @ts-ignore
         google.accounts.id.initialize({
           client_id: this.clientId,
@@ -38,16 +45,21 @@ export class LoginPageComponent implements OnInit {
         );
         // @ts-ignore
         google.accounts.id.prompt((notification: PromptMomentNotification) => {});
-      };
+    //  };
     }
 
     async HandleCredentialResponse(response: CredentialResponse) {
-      await this.service.LoginWithGoogle(response.credential).subscribe(
-        (x:any) => {
-          localStorage.setItem("token", x.token);
-          this._ngZone.run(() => {
-            this.router.navigate(['/main-page']);
-          })},
-        );
+
+      this.securityObject = new AppUserAuth();
+      this.securityService.login(response.credential)
+        .subscribe(response => {
+          localStorage.setItem("AuthObject", JSON.stringify(response))
+          this.securityObject = response;
+        });
+      if(this.returnUrl){
+        this._ngZone.run(()=>{
+          this.router.navigateByUrl(this.returnUrl!);
+        })
+      }
   }
 }

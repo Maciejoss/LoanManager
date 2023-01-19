@@ -103,8 +103,8 @@
 
   <div class="form-group">
       <mat-form-field appearance="fill">
-        <mat-label>Enter your password</mat-label>
-        <input matInput matInput [formControl]="GovDocumentNumberControl" required/>
+        <mat-label>Numer dokumentu</mat-label>
+        <input matInput [formControl]="GovDocumentNumberControl" required/>
         <mat-error *ngIf="GovDocumentNumberControl.invalid">
           {{getErrorMessage("GovDocumentNumber",GovDocumentNumberControl)}}
         </mat-error>

@@ -4,7 +4,7 @@
 
     <div class="form-group">
       <div class="label-container">
-        <label id="name-label" class="name-label">Choose amount</label>
+        <label class="name-label">Choose amount</label>
         <label class="value-label">{{kwota}} 000 zł</label>
       </div>
       <mat-slider name = "kwota"  [(ngModel)]="kwota" min="1" max="100" step="1" value="20">
@@ -14,7 +14,7 @@
 
     <div class="form-group">
       <div class="label-container">
-        <label id="name-label" class="name-label">Choose number of instalments</label>
+        <label class="name-label">Choose number of instalments</label>
         <label class="value-label">{{raty}}</label>
       </div>
       <mat-slider [(ngModel)]="raty" name = "raty" min="1" max="48" step="1" value="6">
