@@ -1,6 +1,7 @@
 import {userType} from "../enums/userType"
 
 export class UserAuthBase {
+  id: string = '';
   name: string = '';
   surname: string = '';
   email: string = '';

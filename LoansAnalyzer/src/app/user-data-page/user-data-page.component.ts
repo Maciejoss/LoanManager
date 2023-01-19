@@ -1,10 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import {UserInfo} from "../shared/models/userInfo";
 import {JobDetails} from "../shared/models/jobDetails";
 import {GovernmentDocument} from "../shared/models/governmentDocument";
+import {SecurityService} from "../shared/security/security.service";
+import {AppUserAuth} from "../security/app-user-auth";
+import {tap} from "rxjs";
+import {userType} from "../shared/enums/userType";
 
 @Component({
   selector: 'user-data-page',
@@ -26,7 +30,10 @@ export class UserDataPageComponent {
   userInfo: UserInfo;
   emptyUser: UserInfo;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private securityService: SecurityService
+  ) {
+
     this.http.get(this.jobType_URL).subscribe((data) => {
       (data as Object[]).forEach((element) => {
         this.jobbs.push(new JobType(element));
@@ -178,6 +185,16 @@ export class UserDataPageComponent {
   DiscardForm() {
     window.location.reload();
   }
+
+  handleFormSubmit(){
+    const userInfoUrl = this.path + '/' + this.securityService.securityObject.id + '/additionalInfo';
+
+    this.http.post<UserInfo>(
+      this.path + "User/LoginWithGoogle",
+      JSON.stringify(this.userInfo),
+      { headers: new HttpHeaders().set('Content-type', 'application/json') });
+  }
+
 }
 
 export class JobType {
