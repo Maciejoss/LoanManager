@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { InquiryInfo, OfferInfo } from '../models/models';
+import { InquiryInfo, OfferInfo } from '../Models/models';
 import { EmployeePageService } from '../services/employee-page.service';
-
 
 @Component({
   selector: 'app-employee-page',
@@ -10,7 +9,9 @@ import { EmployeePageService } from '../services/employee-page.service';
 })
 export class EmployeePageComponent {
   selectedInquiry?: InquiryInfo | null;
-  selectedOffer?: OfferInfo | null;
+  selectedOffer?: OfferInfo | null;  
+
+  employeeData: any = JSON.parse(localStorage.getItem('AuthObject')!);
 
   constructor(protected service : EmployeePageService) {}
 

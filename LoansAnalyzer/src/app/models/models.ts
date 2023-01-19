@@ -62,7 +62,6 @@ export class OfferInfo {
         public createDate: string,
         public updateDate: string,
         public reviewer: EmployeeInfo | null,
-        //TODO: add document link
         public documentLinkValidDate: string
     ) { }
 }
