@@ -6,6 +6,7 @@ import { ClientDataProviderService } from '../services/clientDataProvider.servic
 import { GovernmentDocumentDTO } from './Models/User/UserDTO/GovernmentDocumentDTO';
 import { JobDetailsDTO } from './Models/User/UserDTO/JobDetailsDTO';
 import { UserDTO } from './Models/User/UserDTO/UserDTO';
+import {SecurityService} from "../shared/security/security.service";
 
 @Component({
   selector: 'user-data-page',
@@ -13,6 +14,7 @@ import { UserDTO } from './Models/User/UserDTO/UserDTO';
   styleUrls: ['./user-data-page.component.css'],
 })
 export class UserDataPageComponent {
+
   user: UserInfo = new UserInfo(
     "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     "string",
@@ -34,12 +36,12 @@ export class UserDataPageComponent {
     ))
   Editting: boolean = false;
 
-      constructor(){
+      constructor(securityService: SecurityService){
         this.GetClientDataFromDatabase();
       }
 
   async GetClientDataFromDatabase(){
-    this.user = await ClientDataProviderService.GetUserDataById("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+    this.user = await ClientDataProviderService.GetUserDataById(JSON.parse(localStorage.getItem('AuthObject')!).id);
     console.log(this.user);
   }
 
