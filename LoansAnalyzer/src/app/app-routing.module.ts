@@ -16,16 +16,22 @@ const routes: Routes = [
   },
   { path: 'login-page',
     component: LoginPageComponent,
-    // canActivate: [AuthGuard],
-    // data: {claimType: 'canAccessLoginPage'}
   },
   { path: 'user-data-page',
     component: UserDataPageComponent,
     canActivate: [AuthGuard],
     data: {claimType: 'canAccessAdditionalInfoForm'}
   },
-  { path: 'employee-page', component: EmployeePageComponent },
-  { path: 'my-inquires-page', component: MyInquiresPageComponent},
+  { path: 'employee-page',
+    component: EmployeePageComponent,
+    canActivate: [AuthGuard],
+    data: {claimType: 'canAccessEmployeePage'}
+  },
+  { path: 'my-inquires-page',
+    component: MyInquiresPageComponent,
+    canActivate: [AuthGuard],
+    data: {claimType: 'canAccessMyInquiriesPage'}
+  },
   { path: '',   redirectTo: 'main-page', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
