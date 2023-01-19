@@ -15,8 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { UserDataPageComponent } from './user-data-page/user-data-page.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';;
+import {MatDatepickerModule} from '@angular/material/datepicker';;
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 import { MyInquiresPageComponent } from './my-inquires-page/my-inquires-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {  MatPaginatorModule } from '@angular/material/paginator';
@@ -29,6 +30,11 @@ import { OffersDisplayComponent } from './main-page/offers-display/offers-displa
 import { UserDataDisplayComponent } from './user-data-page/user-data-display/user-data-display.component';
 import {MatListModule} from '@angular/material/list';
 import { ConfirmPopUpComponent } from './user-data-page/user-data-form/confirm-pop-up/confirm-pop-up.component';
+import { MatTabGroup } from '@angular/material/tabs';
+import { EmployeePageComponent } from './employee-page/employee-page.component';
+import { InquiryTableComponent } from './employee-page/inquiry-table/inquiry-table.component';
+import { OfferTableComponent } from './employee-page/offer-table/offer-table.component';
+import { ContentComponent } from './employee-page/content/content.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +50,7 @@ import { ConfirmPopUpComponent } from './user-data-page/user-data-form/confirm-p
     SideMenuComponent,
     OffersDisplayComponent,
     UserDataDisplayComponent,
-    ConfirmPopUpComponent,
-  ],
+    ConfirmPopUpComponent,  EmployeePageComponent, InquiryTableComponent ,ContentComponent,OfferTableComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -59,12 +64,13 @@ import { ConfirmPopUpComponent } from './user-data-page/user-data-form/confirm-p
     NgbModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatSelectModule,
     OAuthModule.forRoot(),
     MatDialogModule,
     MatPaginatorModule,
     MatSortModule,
     MatProgressBarModule,
-    MatListModule
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

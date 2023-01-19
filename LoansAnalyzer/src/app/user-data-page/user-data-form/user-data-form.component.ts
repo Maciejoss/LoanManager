@@ -1,26 +1,18 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-<<<<<<< HEAD
-=======
-import { environment } from 'src/environments/environment';
->>>>>>> origin/main
 import { JobType } from '../Models/JobTypes/JobType';
 import { IdType } from '../Models/IdTypes/IdType';
 import { IdTypeService } from '../Models/IdTypes/IdType-service';
 import { JobTypeService } from '../Models/JobTypes/JobType-service';
 import { ErrorMessagesProvider } from './ErrorMessagesProvider';
-<<<<<<< HEAD
 import { UserDTO } from '../Models/User/UserDTO/UserDTO';
 import { UserPostService } from './UserPost-service';
 import { JobDetailsDTO } from '../Models/User/UserDTO/JobDetailsDTO';
 import { GovernmentDocumentDTO } from '../Models/User/UserDTO/GovernmentDocumentDTO';
 import { ConfirmPopUpComponent } from './confirm-pop-up/confirm-pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { UserInfo } from 'src/app/Models/UserInfo/UserInfo';
-=======
-import { GovernmentDocument, JobDetails, UserInfo } from 'src/app/models/models';
-
->>>>>>> origin/main
 
 @Component({
   selector: 'user-data-form',
@@ -104,28 +96,8 @@ export class UserDataFormComponent {
       this.GovDocumentNumberControl.valid
       )this.saveError=false;
 
-<<<<<<< HEAD
-=======
-
-    this.userInfo.name = this.NameControl.value!;
-    this.userInfo.surname = this.SurNameControl.value!;
-
-    this.userInfo.birthDate = this.BirthDateControl.value!;
-
-    this.userInfo.jobDetails.name = this.JobTypeControl.value!;
-
-    this.userInfo.jobDetails.startDate = this.JobStartDateControl.value!;
-
-    this.userInfo.jobDetails.endDate = this.JobEndDateControl.value!;
-
-    this.userInfo.governmentDocument.name = this.GovDocumentTypeControl.value!;
-
-    this.userInfo.governmentDocument.number = this.GovDocumentNumberControl.value!;
-
->>>>>>> origin/main
     if (this.saveError == false) {
 
-<<<<<<< HEAD
       let GovernmentDocumentTypeId = this.idTypes.find((obj) => {
         return obj.name === this.GovDocumentTypeControl.value;
       })!.id;
@@ -138,20 +110,6 @@ export class UserDataFormComponent {
       })!.id;
       let JobDetailsDescription = this.jobTypes.find((obj) => {
         return obj.name === this.JobTypeControl.value;
-=======
-      this.userInfo.governmentDocument.typeId = this.idTypes.find((obj) => {
-        return obj.name === this.userInfo.governmentDocument.name;
-      })!.id;
-      this.userInfo.governmentDocument.description = this.idTypes.find((obj) => {
-        return obj.name === this.userInfo.governmentDocument.name;
-      })!.descripion;
-
-      this.userInfo.jobDetails.typeId = this.jobTypes.find((obj) => {
-        return obj.name === this.userInfo.jobDetails.name;
-      })!.id;
-      this.userInfo.jobDetails.description = this.jobTypes.find((obj) => {
-        return obj.name === this.userInfo.jobDetails.name;
->>>>>>> origin/main
       })!.descripion;
 
       this.UserInfo = new UserDTO(
