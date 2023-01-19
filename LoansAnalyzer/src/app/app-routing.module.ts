@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {claimType: 'canAccessAdditionalInfoForm'}
   },
-  { path: 'employee-page',
+  { path: 'app-employee-page',
     component: EmployeePageComponent,
     canActivate: [AuthGuard],
     data: {claimType: 'canAccessEmployeePage'}
