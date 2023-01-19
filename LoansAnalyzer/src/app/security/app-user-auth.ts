@@ -3,7 +3,19 @@ import {userType} from "../shared/enums/userType";
 
 export class AppUserAuth extends UserAuthBase{
 
+  get canAccessLoginPage(){
+    return true;
+  }
+
   get canAccessInquiryForm(){
+    return this.userClaims == userType.Client;
+  }
+
+  get canAccessAdditionalInfoForm(){
+    return this.userClaims == userType.Client;
+  }
+
+  get canAccessMyInquiriesPage(){
     return this.userClaims == userType.Client;
   }
 
@@ -11,13 +23,10 @@ export class AppUserAuth extends UserAuthBase{
     return this.userClaims == userType.BankEmployee;
   }
 
-  get canAccessLoginPage(){
-    return true;
+  get canAccessEmployeePage(){
+    return this.userClaims == userType.BankEmployee;
   }
 
-  get canAccessAdditionalInfoForm(){
-    return this.userClaims == userType.Client;
-  }
 
   override init(): void{
     super.init();
