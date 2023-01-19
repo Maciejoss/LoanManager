@@ -1,0 +1,11 @@
+<div id="offers">
+  <div *ngFor="let offer of oferty">
+    <mat-card class="offer">
+      <h2>Bank Offer</h2>
+      <p>Amount of money: <strong>{{offer.amount}} 000</strong></p>
+      <p>Number of instalments: <strong>{{offer.instalments}}</strong></p>
+      <p>Installment value: <strong>{{offer.instalmentToPay}}</strong></p>
+      <button mat-raised-button color="primary" (click)="ChooseOffer(0)">Choose</button>
+    </mat-card>
+  </div>
+</div>

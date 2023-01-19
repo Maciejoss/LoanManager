@@ -1,8 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { GovernmentDocument, JobDetails, UserInfo } from '../models/models';
+import { GovernmentDocument } from '../Models/GovernmentDocument/GovernmentDocument';
+import { JobDetails } from '../Models/JobDetails/JobDetails';
+import { UserInfo } from '../Models/UserInfo/UserInfo';
+import { ClientDataProviderService } from '../services/clientDataProvider.service';
+import { GovernmentDocumentDTO } from './Models/User/UserDTO/GovernmentDocumentDTO';
+import { JobDetailsDTO } from './Models/User/UserDTO/JobDetailsDTO';
+import { UserDTO } from './Models/User/UserDTO/UserDTO';
 
 @Component({
   selector: 'user-data-page',
@@ -10,211 +13,49 @@ import { GovernmentDocument, JobDetails, UserInfo } from '../models/models';
   styleUrls: ['./user-data-page.component.css'],
 })
 export class UserDataPageComponent {
-  // Paths for API
-  private path = environment.apiUrl;
-  readonly jobType_URL = this.path + 'UserInfo/JobTypes';
-  readonly idType_URL = this.path + 'UserInfo/GovernmentDocumentTypes';
+  user: UserInfo = new UserInfo(
+    "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "string",
+    "string",
+    "string",
+    "2023-01-12T11:23:56.159Z",
+    new JobDetails(
+       0,
+      "string",
+      "string",
+      "2023-01-12T11:23:56.159Z",
+      null
+    ),
+    new GovernmentDocument(
+      0,
+      "string",
+      "string",
+      "string"
+    ))
+  Editting: boolean = false;
 
-  hide = true;
-  saveError = false;
-  saveSuccess = false;
+      constructor(){
+        this.GetClientDataFromDatabase();
+      }
 
-  jobbs: JobType[] = [];
-  idds: IdType[] = [];
-  userInfo: UserInfo;
-  emptyUser: UserInfo;
-  filledUser: UserInfo;
-
-  constructor(private http: HttpClient) {
-    this.http.get(this.jobType_URL).subscribe((data) => {
-      (data as Object[]).forEach((element) => {
-        this.jobbs.push(new JobType(element));
-      });
-    });
-
-    this.http.get(this.idType_URL).subscribe((data) => {
-      (data as Object[]).forEach((element) => {
-        this.idds.push(new IdType(element));
-      });
-    });
-
-    this.emptyUser = new UserInfo(
-      '123',
-      'e-mail',
-      null,
-      null,
-      null,
-      new JobDetails('123', 1111, null, 'Director', null, null),
-      new GovernmentDocument('123', 1111, null, 'DrivingLicense', null)
-    );
-
-    this.filledUser = new UserInfo(
-      '123',
-      'e-mail',
-      'Maciej',
-      'Placek',
-      'data',
-      new JobDetails('123', 123, 'dokument', 'Director', 'null', 'null'),
-      new GovernmentDocument('123', 123, 'null', 'DrivingLicense', 'null')
-    );
-
-    this.userInfo = this.filledUser;
+  async GetClientDataFromDatabase(){
+    this.user = await ClientDataProviderService.GetUserDataById("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+    console.log(this.user);
   }
 
-
-  //Form Controls
-
-  NameControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern('[a-zA-Z]+'),
-    Validators.minLength(3),
-  ]);
-  SurNameControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern('[a-zA-Z]+'),
-    Validators.minLength(3),
-  ]);
-  BirthDateControl = new FormControl('', [Validators.required]);
-  JobTypeControl = new FormControl('', [Validators.required]);
-  JobStartDateControl = new FormControl('', [Validators.required]);
-  JobEndDateControl = new FormControl('', []);
-  GovDocumentTypeControl = new FormControl('', [Validators.required]);
-  GovDocumentNumberControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern('[0-9]+'),
-    Validators.minLength(12),
-  ]);
-
-
-  //Error messages
-
-  getNameErrorMessage() {
-    if (this.NameControl.hasError('required')) return 'Należy podać imię';
-    if (this.NameControl.hasError('pattern'))
-      return 'Imię powinno zawierać tylko litery';
-    if (this.NameControl.hasError('minlength'))
-      return 'Imię powinno zawierać conajmniej 3 litery';
-    return '';
+  OnClientDataSet(eventData: UserDTO){
+    this.user = eventData.ToUserInfo();
+    console.log(eventData);
+    this.Editting=false;
   }
 
-  getSurNameErrorMessage() {
-    if (this.SurNameControl.hasError('required'))
-      return 'Należy podać nazwisko';
-    if (this.SurNameControl.hasError('pattern'))
-      return 'Nazwisko może zawierać tylko litery';
-    if (this.SurNameControl.hasError('minlength'))
-      return 'Nazwisko powinno zawierać conajmniej 3 litery';
-    return '';
+  OnClientDataDiscarded(){
+    this.Editting=false;
   }
 
-  getBirthDateErrorMessage() {
-    if (this.BirthDateControl.hasError('required'))
-      return 'Należy podać datę urodzenia';
-    return '';
-  }
-  getJobStartDateErrorMessage() {
-    if (this.JobStartDateControl.hasError('required'))
-      return 'Należy podać datę rozpoczęcia pracy';
-    return '';
-  }
-  getJobTypeErrorMessage() {
-    if (this.JobTypeControl.hasError('required')) return 'Należy się zatrudnić';
-    return '';
-  }
-  getGovDocumentTypeErrorMessage() {
-    if (this.GovDocumentTypeControl.hasError('required'))
-      return 'Należy wybrac typ dokumentu';
-    return '';
-  }
-
-  getGovDocumentNumberErrorMessage() {
-    if (this.GovDocumentNumberControl.hasError('required'))
-      return 'Należy podać numer dokumentu';
-    if (this.GovDocumentNumberControl.hasError('minlength'))
-      return 'numer dokumentu powinien posiadać conajmniej 12 cyfr';
-    return this.GovDocumentNumberControl.hasError('pattern')
-      ? 'Numer dokumentu może zawierać tylko litery'
-      : '';
-  }
-  // Form submission function
-  SubmitForm() {
-    this.saveError=true;
-    if(this.NameControl.valid&&
-      this.SurNameControl.valid&&
-      this.BirthDateControl.valid&&
-      this.JobTypeControl.valid&&
-      this.JobStartDateControl.valid&&
-      this.JobEndDateControl.valid&&
-      this.GovDocumentTypeControl.valid&&
-      this.GovDocumentNumberControl.valid
-      )this.saveError=false;
-
-
-    this.userInfo.name = this.NameControl.value!;
-    this.userInfo.surname = this.SurNameControl.value!;
-
-    this.userInfo.birthDate = this.BirthDateControl.value!;
-
-    this.userInfo.jobDetails.name = this.JobTypeControl.value!;
-
-    this.userInfo.jobDetails.startDate = this.JobStartDateControl.value!;
-
-    this.userInfo.jobDetails.endDate = this.JobEndDateControl.value!;
-
-    this.userInfo.governmentDocument.name = this.GovDocumentTypeControl.value!;
-
-    this.userInfo.governmentDocument.number = this.GovDocumentNumberControl.value!;
-
-    if (this.saveError == false) {
-      this.saveSuccess = true;
-
-      this.userInfo.governmentDocument.typeId = this.idds.find((obj) => {
-        return obj.name === this.userInfo.governmentDocument.name;
-      })!.id;
-      this.userInfo.governmentDocument.description = this.idds.find((obj) => {
-        return obj.name === this.userInfo.governmentDocument.name;
-      })!.descripion;
-
-      this.userInfo.jobDetails.typeId = this.jobbs.find((obj) => {
-        return obj.name === this.userInfo.jobDetails.name;
-      })!.id;
-      this.userInfo.jobDetails.description = this.jobbs.find((obj) => {
-        return obj.name === this.userInfo.jobDetails.name;
-      })!.descripion;
-
-      //update Original UserData
-      //update Database
-
-      console.log(JSON.stringify(this.userInfo));
-      console.log(this.userInfo);
-    }
-  }
-
-  DiscardForm() {
-    window.location.reload();
+  OnEditData(){
+    this.Editting=true;
   }
 }
 
-export class JobType {
-  public id: number;
-  public name: string;
-  public descripion: string;
 
-  constructor(response: any) {
-    this.id = response.id;
-    this.name = response.name;
-    this.descripion = response.description;
-  }
-}
-
-export class IdType {
-  public id: number;
-  public name: string;
-  public descripion: string;
-
-  constructor(response: any) {
-    this.id = response.id;
-    this.name = response.name;
-    this.descripion = response.description;
-  }
-}

@@ -17,22 +17,6 @@ footer{
   height: 30%;
 }
 
-#offers{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  height: 100%;
-  padding-bottom: 5px;
-}
-
-.offer{
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-  height: 100%;
-  margin-bottom: 5px;
-}
-
 .welcome{
   display: flex;
   flex-direction: column;
@@ -95,23 +79,6 @@ footer{
 
 .side-menu.is-active{
   left:0px;
-}
-
-ul{
-  list-style: none;
-  color: white;
-}
-
-ul a {
-  text-decoration: none;
-  color: white;
-}
-
-ul li{
-  padding: 5px;
-  border-radius: 5px;
-  height: min-content;
-
 }
 
 .form-container{

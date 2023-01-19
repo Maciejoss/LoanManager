@@ -1,0 +1,50 @@
+<mat-card id="data-display-card">
+  <mat-list>
+    <mat-list-item >
+      <span matListItemTitle>Email: </span>
+      <span matListItemLine>{{userInfo!.Email}}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <div mat-subheader>Dane personalne</div>
+    <mat-list-item >
+      <span matListItemTitle>Imię: </span>
+      <span matListItemLine>{{userInfo!.Name}}</span>
+    </mat-list-item>
+    <mat-list-item >
+      <span matListItemTitle>Nazwisko: </span>
+      <span matListItemLine>{{userInfo!.SurName}}</span>
+    </mat-list-item>
+    <mat-list-item >
+      <span matListItemTitle>Data urodzenia: </span>
+      <span matListItemLine>{{userInfo!.BirthDate | date}}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <div mat-subheader>Praca</div>
+    <mat-list-item >
+      <span matListItemTitle>Zawód: </span>
+      <span matListItemLine>{{userInfo!.JobDetails?.Name}}</span>
+    </mat-list-item>
+    <mat-list-item >
+      <span matListItemTitle>Data rozpczęcia pracy: </span>
+      <span matListItemLine>{{userInfo!.JobDetails?.StartDate}}</span>
+    </mat-list-item>
+    <mat-list-item >
+      <span matListItemTitle>Data zakończenia pracy: </span>
+      <span *ngIf="userInfo?.JobDetails?.EndDate!=null" matListItemLine>{{userInfo!.JobDetails?.EndDate}}</span>
+      <span *ngIf="userInfo?.JobDetails?.EndDate==null" matListItemLine>Do dziś</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <div mat-subheader>Dokument tożsamości</div>
+    <mat-list-item >
+      <span matListItemTitle>Typ dokumentu: </span>
+      <span matListItemLine>{{userInfo!.GovernmentDocument?.Name}}</span>
+    </mat-list-item>
+    <mat-list-item >
+      <span matListItemTitle>Numer dokumentu: </span>
+      <span matListItemLine>{{userInfo!.GovernmentDocument?.Number}}</span>
+    </mat-list-item>
+
+    <mat-list-item><button mat-raised-button (click)="EditData()">Edytuj dane</button></mat-list-item>
+  </mat-list>
+</mat-card>
+

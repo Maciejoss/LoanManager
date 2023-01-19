@@ -1,18 +1,3 @@
-<!--
-<div *ngIf="isLoggedIn()">
-  <div class="container">Name: {{ userInfo?.info?.name }}</div>
-  <div class="container">E-mail: {{ userInfo?.info?.email }}</div>
-  <div class="container"><img src="{{ userInfo?.info?.picture }}" style="border-radius: 50%;"></div>
-  <div class="container">
-    <button (click)="logout()">Logout</button>
-  </div>
-</div>
-
-<div>
-  <app-login-page></app-login-page>
-</div>
--->
-
 <body>
 
   <button (click)="OpenSideMenu()" class="hamburger">
@@ -20,16 +5,7 @@
   </button>
 
   <div  class="side-menu">
-  <nav>
-    <button (click)="OpenSideMenu()"></button>
-    <ul>
-      <li *ngIf="userInfo!=null" ><button  (click)="logout()">Logout</button></li>
-      <li *ngIf="userInfo==null" ><button (click)="login()">Log in</button></li>
-      <li><a routerLink="/user-data-page" routerLinkActive="active" ariaCurrentWhenActive="page">Dane użytkownika</a></li>
-      <li><a routerLink="/my-inquires-page" routerLinkActive="active" ariaCurrentWhenActive="page">Moje Wnioski</a></li>
-    </ul>
-
-  </nav>
+    <app-side-menu (close)="OpenSideMenu()" [userInfo]="userInfo"></app-side-menu>
   </div>
 
   <div class="welcome">
@@ -37,21 +13,17 @@
     <h2>Korzystaj z życia.</h2>
     <h3>łatwo · prosto · szybko</h3>
   </div>
+
   <mat-card class="form-container">
     <app-inquire-form (status) = "InquireSubmit($event)"></app-inquire-form>
   </mat-card>
+
 </body>
+
 <footer>
+
   <div *ngIf="show==1 && isChosenOffer==false" id="offers">
-    <div *ngFor="let offer of oferty">
-      <mat-card class="offer">
-        <h2>Bank Offer</h2>
-        <p>Amount of money: <strong>{{offer.amount}} 000</strong></p>
-        <p>Number of instalments: <strong>{{offer.instalments}}</strong></p>
-        <p>Installment value: <strong>{{offer.instalmentToPay}}</strong></p>
-        <button mat-raised-button color="primary" (click)="OpenDialog(0)">Choose</button>
-      </mat-card>
-    </div>
+   <app-offers-display [oferty]="oferty" (offerChoosen)="OpenDialog($event)"></app-offers-display>
   </div>
   <div *ngIf="show==2" id="podsumowanie">
     Wniosek został złożony, jego status możesz sprawdzić w zakładce moje wnioski.

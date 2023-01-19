@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'src/environments/environment';
 import { JobType } from '../Models/JobTypes/JobType';
 import { IdType } from '../Models/IdTypes/IdType';
 import { IdTypeService } from '../Models/IdTypes/IdType-service';
 import { JobTypeService } from '../Models/JobTypes/JobType-service';
 import { ErrorMessagesProvider } from './ErrorMessagesProvider';
-import { GovernmentDocument, JobDetails, UserInfo } from 'src/app/models/models';
-
+import { UserDTO } from '../Models/User/UserDTO/UserDTO';
+import { UserPostService } from './UserPost-service';
+import { JobDetailsDTO } from '../Models/User/UserDTO/JobDetailsDTO';
+import { GovernmentDocumentDTO } from '../Models/User/UserDTO/GovernmentDocumentDTO';
+import { ConfirmPopUpComponent } from './confirm-pop-up/confirm-pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { UserInfo } from 'src/app/Models/UserInfo/UserInfo';
 
 @Component({
   selector: 'user-data-form',
@@ -17,15 +21,17 @@ import { GovernmentDocument, JobDetails, UserInfo } from 'src/app/models/models'
 })
 export class UserDataFormComponent {
 
+  @Output() SetClientData = new EventEmitter<UserDTO>();
+  @Output() DiscardClientData = new EventEmitter<UserDTO>();
+
   hide = true;
   saveError = false;
   saveSuccess = false;
 
+  UserInfo:UserDTO|null = null;
+
   jobTypes: JobType[] = [];
   idTypes: IdType[] = [];
-  userInfo: UserInfo;
-  emptyUser: UserInfo;
-  filledUser: UserInfo;
 
   errorMessagesProvider = new ErrorMessagesProvider();
 
@@ -37,32 +43,10 @@ export class UserDataFormComponent {
     this.jobTypes = await JobTypeService.PopulateJobsDropdown();
   }
 
-  constructor() {
+  constructor(private dialogRef:MatDialog) {
 
     this.GetIdDropdownOptions();
     this.GetJobDropdownOptions();
-
-    this.emptyUser = new UserInfo(
-      '123',
-      'e-mail',
-      null,
-      null,
-      null,
-      new JobDetails('123', 1111, null, 'Director', null, null),
-      new GovernmentDocument('123', 1111, null, 'DrivingLicense', null)
-    );
-
-    this.filledUser = new UserInfo(
-      '123',
-      'e-mail',
-      'Maciej',
-      'Placek',
-      'data',
-      new JobDetails('123', 123, 'dokument', 'Director', 'null', 'null'),
-      new GovernmentDocument('123', 123, 'null', 'DrivingLicense', 'null')
-    );
-
-    this.userInfo = this.filledUser;
   }
 
 
@@ -99,7 +83,8 @@ export class UserDataFormComponent {
     return '';
   }
   // Form submission function
-  SubmitForm() {
+  async SubmitForm() {
+
     this.saveError=true;
     if(this.NameControl.valid&&
       this.SurNameControl.valid&&
@@ -111,48 +96,61 @@ export class UserDataFormComponent {
       this.GovDocumentNumberControl.valid
       )this.saveError=false;
 
-
-    this.userInfo.name = this.NameControl.value!;
-    this.userInfo.surname = this.SurNameControl.value!;
-
-    this.userInfo.birthDate = this.BirthDateControl.value!;
-
-    this.userInfo.jobDetails.name = this.JobTypeControl.value!;
-
-    this.userInfo.jobDetails.startDate = this.JobStartDateControl.value!;
-
-    this.userInfo.jobDetails.endDate = this.JobEndDateControl.value!;
-
-    this.userInfo.governmentDocument.name = this.GovDocumentTypeControl.value!;
-
-    this.userInfo.governmentDocument.number = this.GovDocumentNumberControl.value!;
-
     if (this.saveError == false) {
-      this.saveSuccess = true;
 
-      this.userInfo.governmentDocument.typeId = this.idTypes.find((obj) => {
-        return obj.name === this.userInfo.governmentDocument.name;
+      let GovernmentDocumentTypeId = this.idTypes.find((obj) => {
+        return obj.name === this.GovDocumentTypeControl.value;
       })!.id;
-      this.userInfo.governmentDocument.description = this.idTypes.find((obj) => {
-        return obj.name === this.userInfo.governmentDocument.name;
+      let GovernmentDocumentDescription = this.idTypes.find((obj) => {
+        return obj.name === this.GovDocumentTypeControl.value;
       })!.descripion;
 
-      this.userInfo.jobDetails.typeId = this.jobTypes.find((obj) => {
-        return obj.name === this.userInfo.jobDetails.name;
+      let JobDetailsTypeId = this.jobTypes.find((obj) => {
+        return obj.name === this.JobTypeControl.value;
       })!.id;
-      this.userInfo.jobDetails.description = this.jobTypes.find((obj) => {
-        return obj.name === this.userInfo.jobDetails.name;
+      let JobDetailsDescription = this.jobTypes.find((obj) => {
+        return obj.name === this.JobTypeControl.value;
       })!.descripion;
 
-      //update Original UserData
-      //update Database
+      this.UserInfo = new UserDTO(
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        this.NameControl.value!,
+        this.SurNameControl.value!,
+        "email",
+        this.BirthDateControl.value!,
+        new JobDetailsDTO(
+          JobDetailsTypeId,
+          this.JobTypeControl.value!,
+          JobDetailsDescription,
+          this.JobStartDateControl.value!,
+          this.JobEndDateControl.value!
+        ),
+        new GovernmentDocumentDTO(
+          GovernmentDocumentTypeId,
+          this.GovDocumentTypeControl.value!,
+          GovernmentDocumentDescription,
+          this.GovDocumentNumberControl.value!
+        )
+      );
 
-      console.log(JSON.stringify(this.userInfo));
-      console.log(this.userInfo);
+      if(await UserPostService.PostUser(this.UserInfo)){this.OpenConfirmDialog();}
     }
   }
 
   DiscardForm() {
-    window.location.reload();
+    this.DiscardClientData.emit();
   }
+
+  OpenConfirmDialog(){
+    const dialog = this.dialogRef.open(ConfirmPopUpComponent,{data: {}});
+    dialog.componentInstance.onCloseReason.subscribe((data) => {
+      if(data)this.SaveUserInfo();
+    });
+  }
+
+  SaveUserInfo(){
+    this.SetClientData.emit(this.UserInfo!);
+  }
+
+
 }
